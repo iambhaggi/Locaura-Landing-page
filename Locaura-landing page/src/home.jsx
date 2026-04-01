@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import logo from "./assets/Locaura.png";
 import videoBg from "./assets/Locauravideo.mp4";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
-
 // Hook for scroll-triggered animations
 function useScrollReveal(threshold = 0.2) {
   const ref = useRef(null);
@@ -73,8 +72,8 @@ function WaitlistForm({ dark = false }) {
   if (submitted) {
     return (
       <div style={{
-        background: dark ? "rgba(232,56,13,0.12)" : "#fff5f3",
-        border: `1.5px solid ${dark ? "rgba(232,56,13,0.35)" : "#ffd5cc"}`,
+        background: dark ? "rgba(14,165,233,0.1)" : "rgba(14,165,233,0.06)",
+        border: `1.5px solid ${dark ? "rgba(14,165,233,0.4)" : "rgba(14,165,233,0.3)"}`,
         borderRadius: 20,
         padding: "32px 28px",
         textAlign: "center",
@@ -86,8 +85,8 @@ function WaitlistForm({ dark = false }) {
         <div style={{ fontSize: 14, color: dark ? "rgba(255,255,255,0.6)" : "#666", marginBottom: 24 }}>Your exclusive promo code for free delivery:</div>
         
         <div style={{
-          background: dark ? "rgba(232,56,13,0.25)" : "#fff",
-          border: `2.5px solid #E8380D`,
+          background: dark ? "rgba(0,0,0,0.25)" : "#fff",
+          border: `2.5px solid #000000`,
           borderRadius: 16,
           padding: "16px 20px",
           marginBottom: 20,
@@ -99,7 +98,7 @@ function WaitlistForm({ dark = false }) {
           <div style={{
             fontSize: 18,
             fontWeight: 900,
-            color: "#E8380D",
+            color: "#000000",
             letterSpacing: "2px",
             fontFamily: "monospace"
           }}>
@@ -112,7 +111,7 @@ function WaitlistForm({ dark = false }) {
               });
             }}
             style={{
-              background: "#E8380D",
+              background: "#EF4444",
               color: "#fff",
               border: "none",
               padding: "8px 16px",
@@ -123,14 +122,14 @@ function WaitlistForm({ dark = false }) {
               whiteSpace: "nowrap",
               transition: "all 0.2s"
             }}
-            onMouseEnter={e => { e.target.style.background = "#c72d08"; e.target.style.transform = "translateY(-2px)"; }}
-            onMouseLeave={e => { e.target.style.background = "#E8380D"; e.target.style.transform = "translateY(0)"; }}
+            onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}
           >
-            📋 Copy
+            Copy
           </button>
         </div>
 
-        <div style={{ background: dark ? "rgba(255,255,255,0.08)" : "#f0f9f0", borderRadius: 12, padding: "16px", marginBottom: 16, border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "#d1f1d1"}` }}>
+        <div style={{ background: dark ? "rgba(14,165,233,0.08)" : "rgba(14,165,233,0.06)", borderRadius: 12, padding: "16px", marginBottom: 16, border: `1px solid ${dark ? "rgba(14,165,233,0.25)" : "rgba(14,165,233,0.2)"}` }}>
           <div style={{ fontSize: 13, fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 6 }}>💚 How to use:</div>
           <div style={{ fontSize: 12, color: dark ? "rgba(255,255,255,0.7)" : "#666", lineHeight: 1.6 }}>
             1. Download the Locaura app (coming soon)<br />
@@ -146,8 +145,8 @@ function WaitlistForm({ dark = false }) {
         <button
           onClick={() => setSubmitted(false)}
           style={{
-            background: dark ? "rgba(255,255,255,0.1)" : "#e8e8e8",
-            border: `1px solid ${dark ? "rgba(255,255,255,0.2)" : "#ccc"}`,
+            background: dark ? "rgba(255,255,255,0.08)" : "rgba(14,165,233,0.1)",
+            border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(14,165,233,0.25)"}`,
             borderRadius: 8,
             padding: "10px 24px",
             fontSize: 14,
@@ -158,11 +157,11 @@ function WaitlistForm({ dark = false }) {
             transition: "all 0.3s ease"
           }}
           onMouseEnter={e => { 
-            e.target.style.background = dark ? "rgba(255,255,255,0.2)" : "#d8d8d8";
+            e.target.style.background = dark ? "rgba(255,255,255,0.15)" : "rgba(14,165,233,0.18)";
             e.target.style.transform = "translateY(-2px)";
           }}
           onMouseLeave={e => { 
-            e.target.style.background = dark ? "rgba(255,255,255,0.1)" : "#e8e8e8";
+            e.target.style.background = dark ? "rgba(255,255,255,0.08)" : "rgba(14,165,233,0.1)";
             e.target.style.transform = "translateY(0)";
           }}
         >
@@ -201,7 +200,7 @@ function WaitlistForm({ dark = false }) {
         type="email"
       />
       {error && (
-        <div style={{ background: "#ffe8e8", border: "1px solid #ffcccc", borderRadius: 8, padding: "10px 12px", fontSize: 12, color: "#c72d08", fontWeight: 700 }}>
+        <div style={{ background: "#ffe8e8", border: "1px solid #ffcccc", borderRadius: 8, padding: "10px 12px", fontSize: 12, color: "#000000", fontWeight: 700 }}>
           ⚠️ {error}
         </div>
       )}
@@ -209,7 +208,7 @@ function WaitlistForm({ dark = false }) {
         type="button"
         onClick={handleSubmit}
         style={{
-          background: "#E8380D",
+          background: "#EF4444",
           color: "#fff",
           border: "none",
           borderRadius: 12,
@@ -221,10 +220,10 @@ function WaitlistForm({ dark = false }) {
           transition: "background 0.2s, transform 0.15s",
           letterSpacing: "-0.3px",
         }}
-        onMouseEnter={e => { e.target.style.background = "#c72d08"; e.target.style.transform = "translateY(-2px)"; }}
-        onMouseLeave={e => { e.target.style.background = "#E8380D"; e.target.style.transform = "translateY(0)"; }}
+        onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
+        onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}
       >
-        Join Waitlist ⚡
+        Join Waitlist
       </button>
       <div style={{ fontSize: 12, color: dark ? "rgba(255,255,255,0.35)" : "#aaa", textAlign: "center", marginTop: 2 }}>
         We'll notify you once our app is live. No spam, ever.
@@ -300,8 +299,8 @@ function EarlyAccessForms({ dark = false }) {
   if (submitted) {
     return (
       <div style={{
-        background: dark ? "rgba(232,56,13,0.12)" : "#fff5f3",
-        border: `1.5px solid ${dark ? "rgba(232,56,13,0.3)" : "#ffd5cc"}`,
+        background: dark ? "rgba(0,0,0,0.12)" : "rgba(14,165,233,0.06)",
+        border: `1.5px solid ${dark ? "rgba(0,0,0,0.3)" : "rgba(14,165,233,0.3)"}`,
         borderRadius: 20,
         padding: "36px 32px",
         textAlign: "center",
@@ -357,7 +356,7 @@ function EarlyAccessForms({ dark = false }) {
         <button
           onClick={handleRetailerSubmit}
           style={{
-            background: "#E8380D",
+            background: "#EF4444",
             color: "#fff",
             border: "none",
             borderRadius: 12,
@@ -370,10 +369,10 @@ function EarlyAccessForms({ dark = false }) {
             transition: "background 0.2s, transform 0.15s",
             letterSpacing: "-0.3px",
           }}
-          onMouseEnter={e => { e.target.style.background = "#c72d08"; e.target.style.transform = "translateY(-2px)"; }}
-          onMouseLeave={e => { e.target.style.background = "#E8380D"; e.target.style.transform = "translateY(0)"; }}
+          onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
+          onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}
         >
-          Partner with Locaura ⚡
+          Partner with Locaura
         </button>
       </div>
     </div>
@@ -398,30 +397,30 @@ function CitiesPage({ onNavigate }) {
         {/* Animated city icon */}
         <div style={{
           width: 100, height: 100, borderRadius: 28,
-          background: "linear-gradient(135deg,#E8380D,#ff6b35)",
+          background: "#EF4444",
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 48, marginBottom: 32,
-          boxShadow: "0 20px 60px rgba(232,56,13,0.35)",
+          boxShadow: "0 20px 60px rgba(14,165,233,0.35)",
         }}>🏙️</div>
 
         <div style={{
           fontSize: 11, fontWeight: 800, letterSpacing: "3px",
-          textTransform: "uppercase", color: "#E8380D", marginBottom: 16,
+          textTransform: "uppercase", color: "#000000", marginBottom: 16,
         }}>
-          ✦ City Launch
+          City Launch
         </div>
 
         <div style={{
           display: "inline-flex",
           alignItems: "center",
           gap: 10,
-          background: "linear-gradient(135deg, rgba(232,56,13,0.15), rgba(255,107,53,0.1))",
-          border: "1.5px solid rgba(232,56,13,0.4)",
+          background: "linear-gradient(135deg, rgba(0,0,0,0.15), rgba(0,0,0,0.1))",
+          border: "1.5px solid rgba(0,0,0,0.4)",
           borderRadius: 100,
           padding: "6px 16px",
           marginBottom: 16,
         }}>
-          <span style={{ fontSize: 14, fontWeight: 900, color: "#E8380D", letterSpacing: "0.5px" }}>📍 (MOST POPULAR)</span>
+          <span style={{ fontSize: 14, fontWeight: 900, color: "#000000", letterSpacing: "0.5px" }}>(MOST POPULAR)</span>
         </div>
 
         <h1 style={{
@@ -430,7 +429,7 @@ function CitiesPage({ onNavigate }) {
         }}>
           Coming Soon to<br />
           <span style={{
-            background: "linear-gradient(135deg, #E8380D, #ff9060)",
+            background: "#EF4444",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}>Visakhapatnam</span>
@@ -449,7 +448,7 @@ function CitiesPage({ onNavigate }) {
           gap: 16, marginBottom: 56, width: "100%", maxWidth: 520,
         }}>
           {[
-            { icon: "⚡", label: "Same-Day Delivery" },
+            { icon: "", label: "Same-Day Delivery" },
             { icon: "🏪", label: "Local Stores" },
             { icon: "📦", label: "50,000+ Products" },
           ].map(item => (
@@ -495,7 +494,7 @@ function CitiesPage({ onNavigate }) {
           onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)"; e.currentTarget.style.color = "#fff"; }}
           onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; e.currentTarget.style.color = "rgba(255,255,255,0.5)"; }}
         >
-          ← Back to Home
+          Back to Home
         </button>
       </div>
     </div>
@@ -511,7 +510,9 @@ function SharedNav({ scrollY, onNavigate, currentPage, mobileMenuOpen, setMobile
     <nav className={`nav ${solid ? "solid" : ""}`}>
       <div className="nav-logo" onClick={() => onNavigate("home")} style={{ cursor: "pointer" }}>
         <img src={logo} alt="Locaura" />
-        <span className="nav-logo-text">Locaura</span>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+          <span className="nav-logo-text">Locaura</span>
+        </div>
       </div>
       <div className="nav-links">
         <a className="nav-link" onClick={() => onNavigate("home")} style={{ cursor: "pointer" }}>How it works</a>
@@ -583,7 +584,7 @@ function SharedFooter({ onNavigate }) {
       <div className="footer-grid">
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: "#E8380D", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>⚡</div>
+            <img src={logo} alt="Locaura" style={{ width: 36, height: 36, borderRadius: 10, objectFit: "cover" }} />
             <span className="footer-brand-name">Locaura</span>
           </div>
           <p className="footer-brand-copy">© 2026 Locaura Technologies Pvt. Ltd.<br />CIN: U74120MH2024PTC000001</p>
@@ -615,7 +616,7 @@ function SharedFooter({ onNavigate }) {
               { label: "Who We Are", page: "contact" },
               { label: "Careers", link: "mailto:careers@locaura.in" },
               { label: "Press", link: "mailto:press@locaura.in" },
-              { label: "Investor Relations", link: "mailto:investors@locaura.in" },
+              { label: "Investor Relations", link: "mailto:support@locaura.in" },
               { label: "Blog", page: "home" }
             ]
           },
@@ -703,7 +704,7 @@ function SharedFooter({ onNavigate }) {
             <span key={c} className="footer-country">{c}</span>
           ))}
         </div>
-        <div style={{ fontSize: 13, color: "#333" }}>Made with ⚡ in India</div>
+        <div style={{ fontSize: 13, color: "#333" }}>Made with 💙 in India</div>
       </div>
     </footer>
   );
@@ -742,7 +743,7 @@ function PolicyPage({ title, subtitle, icon, children, onNavigate, allPolicies, 
             position: "relative",
             zIndex: 1,
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = "rgba(232,56,13,0.25)"; e.currentTarget.style.borderColor = "#E8380D"; e.currentTarget.style.color = "#fff"; }}
+          onMouseEnter={e => { e.currentTarget.style.background = "rgba(0,0,0,0.25)"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#fff"; }}
           onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}
         >
           🏠 Go to Home
@@ -766,7 +767,7 @@ function PolicyPage({ title, subtitle, icon, children, onNavigate, allPolicies, 
             <div style={{ fontWeight: 800, fontSize: 13, color: "#111", marginBottom: 8 }}>Need help?</div>
             <div style={{ fontSize: 12, color: "#888", lineHeight: 1.6 }}>
               Email us at<br />
-              <a href="mailto:support@locaura.in" style={{ color: "#E8380D", fontWeight: 700 }}>support@locaura.in</a>
+              <a href="mailto:support@locaura.in" style={{ color: "#000000", fontWeight: 700 }}>support@locaura.in</a>
             </div>
           </div>
         </aside>
@@ -921,7 +922,7 @@ function ContactPage({ onNavigate, allPolicies }) {
       <div className="prose-policy">
         <div className="contact-cards">
           {[
-            { icon: "📞", title: "Toll-Free Helpline", detail: "+91 93986 59378", sub: "Available 24×7", color: "#E8380D" },
+            { icon: "📞", title: "Toll-Free Helpline", detail: "+91 93986 59378", sub: "Available 24×7", color: "#000000" },
             { icon: "📧", title: "Email Support", detail: "support@locaura.in", sub: "Response within 24–48 hours", color: "#5B4FE8", mailto: "mailto:support@locaura.in?subject=Support%20Request" },
             { icon: "💬", title: "In-App Chat", detail: "Help → Contact Support", sub: "Live chat or ticketing", color: "#1DB954" },
             { icon: "📱", title: "WhatsApp Helpline", detail: "+91 93986 59378", sub: "Quick queries & support", color: "#25D366" },
@@ -938,9 +939,9 @@ function ContactPage({ onNavigate, allPolicies }) {
           ))}
         </div>
         <h2>Business and Partner Support</h2>
-        <p>Retailers, brand partners, and delivery partners can reach our dedicated support team through any of the channels listed above, or by writing directly to <a href="mailto:support@locaura.in" style={{ color: "#E8380D", fontWeight: 700 }}>support@locaura.in</a>. We aim to respond to all B2B and partner inquiries within one business day. For urgent business matters, please call our business helpline and a member of our team will assist you as quickly as possible.</p>
+        <p>Retailers, brand partners, and delivery partners can reach our dedicated support team through any of the channels listed above, or by writing directly to <a href="mailto:support@locaura.in" style={{ color: "#000000", fontWeight: 700 }}>support@locaura.in</a>. We aim to respond to all B2B and partner inquiries within one business day. For urgent business matters, please call our business helpline and a member of our team will assist you as quickly as possible.</p>
         <h2>Grievance Redressal</h2>
-        <p>In accordance with the requirements of the Consumer Protection (E-Commerce) Rules 2020, Locaura has appointed a designated Grievance Officer to handle consumer complaints. You can reach the Grievance Officer by email at <a href="mailto:support@locaura.in" style={{ color: "#E8380D", fontWeight: 700 }}>support@locaura.in</a>. All grievances submitted through these channels will be formally acknowledged within 48 hours of receipt, and we are committed to resolving every complaint within 30 days. You also have the right to contact the National Consumer Helpline at 1915 or via WhatsApp at 8800001915 for independent assistance with e-commerce disputes.</p>
+        <p>In accordance with the requirements of the Consumer Protection (E-Commerce) Rules 2020, Locaura has appointed a designated Grievance Officer to handle consumer complaints. You can reach the Grievance Officer by email at <a href="mailto:support@locaura.in" style={{ color: "#000000", fontWeight: 700 }}>support@locaura.in</a>. All grievances submitted through these channels will be formally acknowledged within 48 hours of receipt, and we are committed to resolving every complaint within 30 days. You also have the right to contact the National Consumer Helpline at 1915 or via WhatsApp at 8800001915 for independent assistance with e-commerce disputes.</p>
         <h2>Registered Office</h2>
         <p>For all formal written communications, our registered office address is: Locaura Internet Private Limited, 1234 Corporate Avenue, Tech Park, Hyderabad – 500081, Telangana, India.</p>
       </div>
@@ -1004,13 +1005,13 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Dynamic Waitlist Counter - Increments by 5 every hour (starting from 0)
+  // Dynamic Waitlist Counter - Increments by 2 every hour (starting from 0)
   useEffect(() => {
     const updateCounter = () => {
       const startTime = new Date('2026-04-01').getTime();
       const now = new Date().getTime();
       const hoursElapsed = Math.floor((now - startTime) / (1000 * 60 * 60));
-      setWaitlistCount(Math.max(0, hoursElapsed * 5));
+      setWaitlistCount(Math.max(0, hoursElapsed * 2));
     };
     updateCounter();
     const timer = setInterval(updateCounter, 60000); // Check every minute
@@ -1055,7 +1056,7 @@ export default function App() {
   ];
 
   const features = [
-    { icon: "⚡", title: "Live Delivery Tracking", desc: "Watch your order move on the map in real time, street by street." },
+    { icon: "", title: "Live Delivery Tracking", desc: "Watch your order move on the map in real time, street by street." },
     { icon: "📦", title: "Hyperlocal Inventory", desc: "Only items stocked at nearby stores — no surprises, no delays." },
     { icon: "🎯", title: "Smart Recommendations", desc: "AI picks trending items based on weather, events & your style." },
     { icon: "💬", title: "Chat with Delivery Agent", desc: "Coordinate delivery instantly — no missed packages, ever." },
@@ -1066,14 +1067,14 @@ export default function App() {
   ];
 
   const apps = [
-    { name: "Locaura", tag: "Core App", icon: "⚡", bg: "linear-gradient(135deg,#E8380D,#ff6b35)", desc: "Order clothes, shoes & gadgets and get them delivered the same day — right to your door." },
+    { name: "Locaura", tag: "Core App", icon: "image", image: "/src/assets/Locaura.jpeg", bg: "linear-gradient(135deg,#000000,#000000)", desc: "Order clothes, shoes & gadgets and get them delivered the same day — right to your door." },
     { name: "Locaura express", tag: "Speed Mode", icon: "🚀", bg: "linear-gradient(135deg,#F5A623,#f0c040)", desc: "Need it in 2 hours? Swift Express prioritises your order for ultra-fast city delivery." },
     { name: "Locaura biz", tag: "B2B", icon: "🏢", bg: "linear-gradient(135deg,#5B4FE8,#8b7cf6)", desc: "Bulk orders for offices & businesses. Uniforms, electronics — sourced and delivered fast." },
     { name: "Locaura picks", tag: "Discovery", icon: "🛍️", bg: "linear-gradient(135deg,#1DB954,#14a845)", desc: "AI-curated product picks based on city trends, season, and your personal style." },
   ];
 
   const benefits = [
-    { icon: "⚡", title: "Same-Day Delivery", desc: "Order before 2 PM, receive by evening — guaranteed in your city." },
+    { icon: "", title: "Same-Day Delivery", desc: "Order before 2 PM, receive by evening — guaranteed in your city." },
     { icon: "📍", title: "Hyperlocal Stock", desc: "Only products at nearby stores are shown — zero wait, zero disappointment." },
     { icon: "🔄", title: "Easy Returns", desc: "Free same-day return pickup within 24 hours." },
     { icon: "💳", title: "Best Prices", desc: "We match or beat any local store price. Always." },
@@ -1107,14 +1108,15 @@ export default function App() {
     }
     .nav-logo { display: flex; align-items: center; gap: 14px; transition: transform 0.2s ease; }
     .nav-logo:hover { transform: translateY(-2px); }
-    .nav-logo img { width: 44px; height: 44px; object-fit: contain; object-position: center; border-radius: 12px; box-shadow: 0 4px 12px rgba(232, 56, 13, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1); transition: all 0.3s ease; background: rgba(255, 255, 255, 0.02); padding: 2px; }
-    .nav-logo:hover img { box-shadow: 0 6px 20px rgba(232, 56, 13, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15); transform: scale(1.05); }
+    .nav-logo img { width: 44px; height: 44px; object-fit: contain; object-position: center; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1); transition: all 0.3s ease; background: rgba(255, 255, 255, 0.02); padding: 2px; }
+    .nav-logo:hover img { box-shadow: 0 6px 20px rgba(0,0,0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15); transform: scale(1.05); }
     .nav-logo-text { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -0.5px; transition: all 0.2s ease; }
+    .nav-logo-tagline { font-size: 10px; font-weight: 700; color: #EF4444; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s ease; }
     .nav-links { display: flex; align-items: center; gap: 40px; }
     .nav-link { color: rgba(255,255,255,0.68); font-size: 14px; font-weight: 600; cursor: pointer; transition: color 0.15s; text-decoration: none; }
     .nav-link:hover { color: #fff; }
-    .nav-cta { background: #E8380D; color: #fff; border: none; border-radius: 8px; padding: 11px 26px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: 'Nunito', sans-serif; transition: background 0.2s, transform 0.15s; }
-    .nav-cta:hover { background: #c72d08; transform: translateY(-1px); }
+    .nav-cta { background: #EF4444; color: #fff; border: none; border-radius: 8px; padding: 11px 26px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: 'Nunito', sans-serif; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: #DC2626; transform: translateY(-1px); }
 
     /* ── HERO ── */
     .hero {
@@ -1125,7 +1127,8 @@ export default function App() {
     }
     .hero-video {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover; filter: brightness(1.5); z-index: 0;
+      object-fit: cover; z-index: 0;
+      -webkit-backface-visibility: hidden; backface-visibility: hidden;
     }
     .hero-gradient {
       background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 35%, rgba(0,0,0,0.65) 100%);
@@ -1167,20 +1170,20 @@ export default function App() {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(232,56,13,0.18), rgba(255,107,53,0.12));
-      border: 1.5px solid rgba(232,56,13,0.5);
+      background: linear-gradient(135deg, rgba(0,0,0,0.18), rgba(0,0,0,0.12));
+      border: 1.5px solid rgba(0,0,0,0.5);
       border-radius: 100px;
       padding: 8px 20px;
       margin-bottom: 20px;
       animation: pulseBadge 2.5s ease-in-out infinite;
     }
     @keyframes pulseBadge {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(232,56,13,0.3); }
-      50% { box-shadow: 0 0 0 8px rgba(232,56,13,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(0,0,0,0); }
     }
     .waitlist-badge-dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: #E8380D;
+      background: #EF4444;
       animation: blinkDot 1.4s ease-in-out infinite;
     }
     @keyframes blinkDot {
@@ -1189,7 +1192,7 @@ export default function App() {
     }
     .waitlist-badge-text {
       font-size: 12px; font-weight: 800; letter-spacing: 1px;
-      text-transform: uppercase; color: #ff8060;
+      text-transform: uppercase; color: #EF4444;
     }
 
     /* ── EARLY ACCESS HERO BAND ── */
@@ -1203,7 +1206,7 @@ export default function App() {
       content: '';
       position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
       width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,56,13,0.1) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, transparent 65%);
       pointer-events: none;
     }
     .early-access-inner {
@@ -1212,7 +1215,7 @@ export default function App() {
     }
     .early-access-eyebrow {
       font-size: 11px; font-weight: 800; letter-spacing: 2.5px;
-      text-transform: uppercase; color: #E8380D; margin-bottom: 12px;
+      text-transform: uppercase; color: #EF4444; margin-bottom: 12px;
     }
     .early-access-title {
       font-size: 48px; font-weight: 900; color: #fff;
@@ -1224,7 +1227,7 @@ export default function App() {
     }
 
     /* ── SHARED SECTION ── */
-    .section-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #E8380D; margin-bottom: 14px; }
+    .section-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #EF4444; margin-bottom: 14px; }
     .section-title { font-size: 52px; font-weight: 900; color: #0d0d0d; line-height: 1.06; letter-spacing: -2px; }
 
     /* ── BETTER ── */
@@ -1245,7 +1248,7 @@ export default function App() {
     .fb-sub { font-size: 15px; color: #111; }
     .benefit-list { display: flex; flex-direction: column; gap: 22px; margin-top: 36px; }
     .benefit-item { display: flex; align-items: flex-start; gap: 18px; }
-    .benefit-icon { width: 48px; height: 48px; border-radius: 14px; background: #fff5f3; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .benefit-icon { width: 48px; height: 48px; border-radius: 14px; background: #fff2ec; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
     .benefit-title { font-size: 16px; font-weight: 800; color: #111; margin-bottom: 4px; }
     .benefit-desc { font-size: 14px; color: #999; line-height: 1.55; }
 
@@ -1256,9 +1259,9 @@ export default function App() {
     .stat:last-child { border-right: none; }
     .stat-icon { font-size: 34px; margin-bottom: 12px; }
     .stat-value { font-size: 58px; font-weight: 900; color: #0d0d0d; letter-spacing: -2.5px; line-height: 1; }
-    .stat-value span { color: #E8380D; }
+    .stat-value span { color: #EF4444; }
     .stat-label { font-size: 15px; color: #444; font-weight: 800; margin-top: 8px; }
-    .stat-tag { font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#E8380D; margin-bottom:6px; }
+    .stat-tag { font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#EF4444; margin-bottom:6px; }
 
     /* ── FEATURES ── */
     .features-section { background: #f7f7f7; padding: 100px 0; }
@@ -1268,11 +1271,11 @@ export default function App() {
     .feat-col { display: flex; flex-direction: column; gap: 18px; }
     .feat-item { background: #fff; border-radius: 20px; padding: 24px; display: flex; align-items: flex-start; gap: 18px; box-shadow: 0 2px 16px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; cursor: default; }
     .feat-item:hover { transform: scale(1.025); box-shadow: 0 10px 36px rgba(0,0,0,0.1); }
-    .feat-icon { width: 50px; height: 50px; border-radius: 14px; background: #fff5f3; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+    .feat-icon { width: 50px; height: 50px; border-radius: 14px; background: #fff2ec; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
     .feat-title { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 5px; }
     .feat-desc { font-size: 13px; color: #999; line-height: 1.55; }
     .phone-wrap { background: #1a1a1a; border-radius: 54px; padding: 14px; box-shadow: 0 40px 100px rgba(0,0,0,0.3); }
-    .phone-screen { background: linear-gradient(160deg, #E8380D 0%, #ff6040 45%, #1a1a1a 100%); border-radius: 42px; height: 640px; display: flex; flex-direction: column; align-items: center; gap: 11px; padding: 28px 20px; position: relative; overflow: hidden; }
+    .phone-screen { background: linear-gradient(160deg, #000000 0%, #000000 45%, #1a1a1a 100%); border-radius: 42px; height: 640px; display: flex; flex-direction: column; align-items: center; gap: 11px; padding: 28px 20px; position: relative; overflow: hidden; }
     .phone-screen::before { content:''; position:absolute; top:-60px; right:-60px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,0.07); }
     .phone-topbar { width:100%; display:flex; justify-content:space-between; align-items:center; }
     .phone-topbar span { color:rgba(255,255,255,0.5); font-size:12px; font-weight:700; }
@@ -1298,25 +1301,25 @@ export default function App() {
     .eco-tag { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#bbb; margin-bottom:8px; }
     .eco-name { font-size:22px; font-weight:900; color:#111; margin-bottom:11px; }
     .eco-desc { font-size:14px; color:#888; line-height:1.65; margin-bottom:20px; }
-    .eco-link { color:#E8380D; font-size:14px; font-weight:800; display:flex; align-items:center; gap:5px; }
+    .eco-link { color:#EF4444; font-size:14px; font-weight:800; display:flex; align-items:center; gap:5px; }
 
     /* ── CATEGORIES ── */
     .cat-section { background:#f7f7f7; padding:100px 80px; text-align:center; }
     .cat-chips { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:44px; }
     .cat-chip { display:flex; align-items:center; gap:11px; background:#fff; border:1.5px solid #eee; border-radius:100px; padding:14px 28px; font-size:16px; font-weight:700; color:#333; cursor:pointer; transition:all 0.18s; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-    .cat-chip:hover { background:#E8380D; color:#fff; border-color:#E8380D; transform:translateY(-2px); box-shadow:0 8px 24px rgba(232,56,13,0.25); }
+    .cat-chip:hover { background:#EF4444; color:#fff; border-color:#EF4444; transform:translateY(-2px); box-shadow:0 8px 24px rgba(239,68,68,0.3); }
     .cat-chip-icon { font-size:24px; }
 
     /* ── DOWNLOAD ── */
     .download-wrap { padding: 100px 80px; display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center; }
     .download-title { font-size: 60px; font-weight: 900; color: #111; letter-spacing: -3px; line-height: 1.05; margin-bottom: 20px; }
-    .download-title span { color: #E8380D; }
+    .download-title span { color: #EF4444; }
     .download-sub { font-size: 17px; color: #888; line-height: 1.75; margin-bottom: 44px; }
     .qr-card { background:#f7f7f7; border-radius:28px; padding:44px; display:flex; flex-direction:column; align-items:center; gap:22px; }
     .qr-label { font-size: 15px; font-weight: 700; color: #555; }
     .qr-block { width:190px; height:190px; background:#111; border-radius:22px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .qr-pill { display:flex; align-items:center; gap:13px; background:#fff5f3; border:1px solid #ffd5cc; border-radius:16px; padding:14px 24px; }
-    .qr-pill-name { font-size:16px; font-weight:900; color:#E8380D; }
+    .qr-pill { display:flex; align-items:center; gap:13px; background:#fff2ec; border:1px solid #ffc9b0; border-radius:16px; padding:14px 24px; }
+    .qr-pill-name { font-size:16px; font-weight:900; color:#EF4444; }
     .qr-pill-sub { font-size:12px; color:#bbb; }
 
     /* ── FOOTER ── */
@@ -1343,14 +1346,14 @@ export default function App() {
       cursor: pointer; 
       font-size: 17px; 
       transition: all 0.15s;
-      color: #E8380D;
-      border: 1.5px solid rgba(232, 56, 13, 0.3);
+      color: #888;
+      border: 1.5px solid #2a2a2a;
       text-decoration: none;
     }
     .social-btn:hover { 
-      background: #E8380D;
+      background: #EF4444;
       color: #fff;
-      border-color: #E8380D;
+      border-color: #EF4444;
       transform: translateY(-3px);
     }
     .store-btns-dark { display:flex; flex-direction:column; gap:10px; margin-top:20px; }
@@ -1374,14 +1377,14 @@ export default function App() {
     }
     .hero-badge {
       display: inline-block;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       color: #fff;
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 100px;
       font-size: 12px;
       font-weight: 700;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
     }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
@@ -1394,8 +1397,8 @@ export default function App() {
     
     /* ── SECONDARY CTA BUTTON ── */
     .store-btn-secondary {
-      background: rgba(232, 56, 13, 0.15);
-      border: 2px solid #E8380D;
+      background: rgba(239,68,68,0.15);
+      border: 2px solid #EF4444;
       color: #fff;
       border-radius: 12px;
       padding: 13px 32px;
@@ -1407,9 +1410,9 @@ export default function App() {
       letter-spacing: -0.3px;
     }
     .store-btn-secondary:hover {
-      background: #E8380D;
+      background: #EF4444;
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(232, 56, 13, 0.4);
+      box-shadow: 0 8px 24px rgba(239,68,68,0.4);
     }
 
     /* ── STORE BUTTONS RESPONSIVE ── */
@@ -1423,6 +1426,7 @@ export default function App() {
       .nav-logo { gap: 12px; }
       .nav-logo img { width: 40px; height: 40px; border-radius: 10px; padding: 2px; }
       .nav-logo-text { font-size: 18px; }
+      .nav-logo-tagline { font-size: 9px; }
       .nav-links { display: none !important; }
       .nav-hamburger { display: flex !important; align-items: center; justify-content: center; }
       .nav-link { font-size: 13px; }
@@ -1502,13 +1506,13 @@ export default function App() {
       content: '';
       position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
       width: 800px; height: 800px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,56,13,0.12) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(0,0,0,0.12) 0%, transparent 65%);
       pointer-events: none;
     }
     .policy-hero-icon { font-size: 52px; margin-bottom: 16px; position: relative; z-index: 1; }
     .policy-hero-tag {
       font-size: 11px; font-weight: 800; letter-spacing: 2.5px;
-      text-transform: uppercase; color: #E8380D; margin-bottom: 12px;
+      text-transform: uppercase; color: #EF4444; margin-bottom: 12px;
       position: relative; z-index: 1;
     }
     .policy-hero-title {
@@ -1550,7 +1554,7 @@ export default function App() {
       color: #666; transition: all 0.15s; margin-bottom: 4px;
     }
     .policy-sidebar-btn:hover { background: #f7f7f7; color: #111; }
-    .policy-sidebar-btn.active { background: #fff5f3; color: #E8380D; }
+    .policy-sidebar-btn.active { background: #fff2ec; color: #EF4444; }
     .policy-sidebar-icon { font-size: 18px; }
     .policy-sidebar-contact {
       margin-top: 32px; padding: 18px; background: #f9f9f9;
@@ -1606,7 +1610,7 @@ export default function App() {
       font-size: 13px; color: #aaa; font-weight: 600;
     }
     .policy-breadcrumb-home {
-      color: #E8380D; cursor: pointer; font-weight: 700;
+      color: #EF4444; cursor: pointer; font-weight: 700;
     }
     .policy-breadcrumb-home:hover { text-decoration: underline; }
   `;
@@ -1624,12 +1628,12 @@ export default function App() {
           top: 70,
           left: 0,
           right: 0,
-          background: "linear-gradient(90deg, rgba(232,56,13,0.95), rgba(255,107,53,0.9))",
+          background: "linear-gradient(90deg, rgba(0,0,0,0.95), rgba(0,0,0,0.9))",
           backdropFilter: "blur(10px)",
           padding: "12px 32px",
           textAlign: "center",
           zIndex: 998,
-          borderBottom: "1px solid rgba(232,56,13,0.3)",
+          borderBottom: "1px solid rgba(0,0,0,0.3)",
           animation: "slideDown 0.4s ease",
         }}>
           <div style={{ color: "#fff", fontWeight: 900, fontSize: 13, letterSpacing: "0.5px" }}>
@@ -1645,7 +1649,7 @@ export default function App() {
           top: 80,
           left: 0,
           right: 0,
-          background: "linear-gradient(135deg, rgba(232,56,13,0.95), rgba(255,107,53,0.95))",
+          background: "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(0,0,0,0.95))",
           padding: "12px 32px",
           zIndex: 100,
           display: "flex",
@@ -1653,14 +1657,14 @@ export default function App() {
           justifyContent: "space-between",
           gap: 20,
           backdropFilter: "blur(10px)",
-          boxShadow: "0 4px 20px rgba(232,56,13,0.3)",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
           animation: "slideDown 0.4s ease",
         }}>
           <div style={{ color: "#fff", fontSize: 13, fontWeight: 700 }}>
-            ⚡ Join 10K+ users. Same-day delivery in your city. <strong>Free returns.</strong>
+            Join 10K+ users. Same-day delivery in your city. <strong>Free returns.</strong>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#fff", color: "#E8380D", border: "none", padding: "8px 18px", borderRadius: 8, fontWeight: 800, fontSize: 12, cursor: "pointer", transition: "transform 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
+            <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#fff", color: "#000000", border: "none", padding: "8px 18px", borderRadius: 8, fontWeight: 800, fontSize: 12, cursor: "pointer", transition: "transform 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
               Join Now
             </button>
             <button onClick={() => setShowStickyEmail(false)} style={{ background: "transparent", color: "#fff", border: "none", cursor: "pointer", fontSize: 18 }}>✕</button>
@@ -1746,8 +1750,8 @@ export default function App() {
                 }}>Wait! Don't Leave Yet</h3>
                 
                 <div style={{
-                  background: "linear-gradient(135deg, rgba(232,56,13,0.08) 0%, rgba(255,107,53,0.05) 100%)",
-                  border: "1px solid rgba(232,56,13,0.15)",
+                  background: "linear-gradient(135deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.05) 100%)",
+                  border: "1px solid rgba(0,0,0,0.15)",
                   borderRadius: 16,
                   padding: "16px 20px",
                   marginBottom: 28,
@@ -1758,13 +1762,7 @@ export default function App() {
                     marginBottom: 8,
                     fontWeight: 700,
                     margin: 0
-                  }}>💎 Get ₹500 Instant Credit</p>
-                  <p style={{ 
-                    fontSize: 14, 
-                    color: "#666", 
-                    margin: "8px 0 0 0",
-                    lineHeight: 1.4
-                  }}>Join thousands who got free delivery on their first order</p>
+                  }}>Join the waitlist and get free instant delivery on your first order</p>
                 </div>
                 
                 {exitIntentError && (
@@ -1807,8 +1805,8 @@ export default function App() {
                     backgroundColor: "#fff"
                   }}
                   onFocus={(e) => { 
-                    e.target.style.borderColor = "#E8380D"; 
-                    e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)";
+                    e.target.style.borderColor = "#000000"; 
+                    e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)";
                   }}
                   onBlur={(e) => { 
                     e.target.style.borderColor = "#e2e8f0"; 
@@ -1848,7 +1846,7 @@ export default function App() {
                   }
                 }} style={{
                   width: "100%",
-                  background: "linear-gradient(135deg, #E8380D 0%, #d63905 100%)",
+                  background: "#EF4444",
                   color: "#fff",
                   padding: "14px 24px",
                   border: "none",
@@ -1858,15 +1856,15 @@ export default function App() {
                   transition: "all 0.3s",
                   marginBottom: 12,
                   fontSize: 15,
-                  boxShadow: "0 8px 20px rgba(232,56,13,0.3)"
+                  boxShadow: "0 8px 20px rgba(0,0,0,0.3)"
                 }} onMouseEnter={e => { 
                   e.target.style.transform = "translateY(-2px)"; 
-                  e.target.style.boxShadow = "0 12px 30px rgba(232,56,13,0.4)";
+                  e.target.style.boxShadow = "0 12px 30px rgba(0,0,0,0.4)";
                 }} onMouseLeave={e => { 
                   e.target.style.transform = "translateY(0)"; 
-                  e.target.style.boxShadow = "0 8px 20px rgba(232,56,13,0.3)";
+                  e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)";
                 }}>
-                  ✓ Yes, Get ₹500 Credit Now
+                  ✓ Yes, Get first free delivery Now
                 </button>
                 
                 <button onClick={() => setShowExitIntent(false)} style={{
@@ -1912,15 +1910,15 @@ export default function App() {
                   color: "#666", 
                   marginBottom: 28,
                   lineHeight: 1.5
-                }}>Your exclusive ₹500 credit code is ready. Save it now!</p>
+                }}>Your exclusive ₹first free delivery code is ready. Save it now!</p>
                 
                 <div style={{
                   background: "linear-gradient(135deg, #fff9f5 0%, #fff5f0 100%)",
-                  border: `2px solid #E8380D`,
+                  border: `2px solid #000000`,
                   borderRadius: 16,
                   padding: "20px",
                   marginBottom: 24,
-                  boxShadow: "0 2px 12px rgba(232,56,13,0.1)"
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.1)"
                 }}>
                   <div style={{ fontSize: 12, color: "#999", marginBottom: 10, fontWeight: 600 }}>YOUR PROMO CODE</div>
                   <div style={{
@@ -1932,14 +1930,14 @@ export default function App() {
                     <div style={{
                       fontSize: 20,
                       fontWeight: 900,
-                      color: "#E8380D",
+                      color: "#000000",
                       letterSpacing: "2px",
                       fontFamily: "monospace",
                       backgroundColor: "#fff",
                       padding: "12px 16px",
                       borderRadius: 8,
                       flex: 1,
-                      border: "1px solid rgba(232,56,13,0.2)"
+                      border: "1px solid rgba(0,0,0,0.2)"
                     }}>
                       {exitIntentPromoCode}
                     </div>
@@ -1950,7 +1948,7 @@ export default function App() {
                         });
                       }}
                       style={{
-                        background: "#E8380D",
+                        background: "#EF4444",
                         color: "#fff",
                         border: "none",
                         padding: "12px 20px",
@@ -1959,29 +1957,29 @@ export default function App() {
                         cursor: "pointer",
                         transition: "all 0.2s",
                         whiteSpace: "nowrap",
-                        boxShadow: "0 4px 12px rgba(232,56,13,0.25)",
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
                         fontSize: 14
                       }}
                       onMouseEnter={e => { 
                         e.target.style.transform = "translateY(-2px)";
-                        e.target.style.boxShadow = "0 6px 16px rgba(232,56,13,0.35)";
+                        e.target.style.boxShadow = "0 6px 16px rgba(0,0,0,0.35)";
                       }}
                       onMouseLeave={e => { 
                         e.target.style.transform = "translateY(0)";
-                        e.target.style.boxShadow = "0 4px 12px rgba(232,56,13,0.25)";
+                        e.target.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
                       }}
                     >
-                      📋 Copy
+                      Copy
                     </button>
                   </div>
                 </div>
 
                 <div style={{ 
-                  background: "rgba(232,56,13,0.06)", 
+                  background: "rgba(0,0,0,0.06)", 
                   borderRadius: 12, 
                   padding: "18px 16px", 
                   marginBottom: 24,
-                  border: "1px solid rgba(232,56,13,0.1)"
+                  border: "1px solid rgba(0,0,0,0.1)"
                 }}>
                   <div style={{ 
                     fontSize: 13, 
@@ -2014,7 +2012,7 @@ export default function App() {
                 <button
                   onClick={() => { setShowExitIntent(false); setExitIntentSubmitted(false); setExitIntentEmail(""); setExitIntentPromoCode(""); setExitIntentError(""); }}
                   style={{
-                    background: "linear-gradient(135deg, #E8380D 0%, #d63905 100%)",
+                    background: "#EF4444",
                     color: "#fff",
                     border: "none",
                     borderRadius: 12,
@@ -2024,15 +2022,15 @@ export default function App() {
                     cursor: "pointer",
                     width: "100%",
                     transition: "all 0.3s ease",
-                    boxShadow: "0 8px 20px rgba(232,56,13,0.3)"
+                    boxShadow: "0 8px 20px rgba(0,0,0,0.3)"
                   }}
                   onMouseEnter={e => { 
                     e.target.style.transform = "translateY(-2px)";
-                    e.target.style.boxShadow = "0 12px 30px rgba(232,56,13,0.4)";
+                    e.target.style.boxShadow = "0 12px 30px rgba(0,0,0,0.4)";
                   }}
                   onMouseLeave={e => { 
                     e.target.style.transform = "translateY(0)";
-                    e.target.style.boxShadow = "0 8px 20px rgba(232,56,13,0.3)";
+                    e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)";
                   }}
                 >
                   Got it! Close
@@ -2049,7 +2047,7 @@ export default function App() {
         <>
           {/* ── HERO ── */}
           <section className="hero">
-            <video className="hero-video" autoPlay loop muted playsInline>
+            <video className="hero-video" autoPlay loop muted playsInline preload="metadata" style={{ width: '100%', height: '100%' }}>
               <source src={videoBg} type="video/mp4" />
             </video>
             <div className="hero-gradient" />
@@ -2059,8 +2057,8 @@ export default function App() {
                 <span className="hero-badge">✓ 1000+ Verified Stores</span>
                 <span className="hero-badge">🔒 100% Secure</span>
               </div>
-              <div style={{ background: "#E8380D", border: "2px solid #E8380D", borderRadius: 12, padding: "12px 20px", marginBottom: 24, display: "inline-block", fontSize: 14, fontWeight: 900, color: "#fff", textShadow: "1px 1px 3px rgba(0,0,0,0.3)", boxShadow: "0 4px 12px rgba(232, 56, 13, 0.4)" }}>
-                ⏰ Launching in Vizag in {countdown.days}d {countdown.hours}h {countdown.minutes}m {countdown.seconds}s
+              <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8, padding: "10px 18px", marginBottom: 24, display: "inline-block", fontSize: 13, fontWeight: 700, color: "#fff", backdropFilter: "blur(15px)" }}>
+                Launching in Vizag in {countdown.days}d {countdown.hours}h {countdown.minutes}m {countdown.seconds}s
               </div>
               <div className="hero-brand">locaura</div>
               <h1 className="hero-headline">
@@ -2072,63 +2070,23 @@ export default function App() {
 
               {/* Download buttons */}
               <div className="store-btns">
-                <a href="#" className="store-btn-zomato store-btn-primary">
+                <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" className="store-btn-zomato store-btn-primary">
                   <GooglePlayIcon />
                   <div className="store-btn-labels"><small>DOWNLOAD NOW</small><strong>Google Play</strong></div>
                 </a>
                 <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} className="store-btn-secondary">
-                  Join Waitlist ⚡
+                  Join Waitlist
                 </button>
               </div>
             </div>
             <div className="scroll-cue"><span>Scroll down</span><span className="scroll-chevron">⌄</span></div>
           </section>
 
-          {/* ── MOBILE APP INSTALL BANNER ── */}
-          <section style={{ background: "#E8380D", padding: "20px 32px", textAlign: "center" }}>
-            <div style={{ maxWidth: 700, margin: "0 auto" }}>
-              <div style={{ fontSize: 16, fontWeight: 900, color: "#fff", marginBottom: 12 }}>
-                📱 Download Our App (Coming Soon)
-              </div>
-              <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-                <button style={{ background: "#fff", color: "#E8380D", border: "none", padding: "10px 22px", borderRadius: 8, fontWeight: 800, fontSize: 13, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
-                  Notify for Android
-                </button>
-                <button style={{ background: "#fff", color: "#E8380D", border: "none", padding: "10px 22px", borderRadius: 8, fontWeight: 800, fontSize: 13, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
-                  Notify for iOS
-                </button>
-              </div>
-            </div>
-          </section>
-
-          {/* ── TRUST & SAFETY SECTION ── */}
-          <section style={{ background: "#f0f0f0", padding: "56px 32px", textAlign: "center" }}>
-            <div style={{ maxWidth: 900, margin: "0 auto" }}>
-              <h3 style={{ fontSize: 24, fontWeight: 900, color: "#111", marginBottom: 40 }}>🔒 Trust & Safety</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 24 }}>
-                {[
-                  { icon: "🔐", label: "RBI Approved Gateway", sub: "Razorpay Certified" },
-                  { icon: "🛡️", label: "SSL Encrypted", sub: "256-bit Security" },
-                  { icon: "✓", label: "GST Compliant", sub: "Legal & Documented" },
-                  { icon: "⚖️", label: "Consumer Protected", sub: "E-Commerce Rules 2020" },
-                  { icon: "🏦", label: "NCERT Registered", sub: "Dispute Resolution" },
-                  { icon: "🔍", label: "Verified Retailers", sub: "100% Authentic" },
-                ].map((item, i) => (
-                  <div key={i} style={{ padding: "20px", background: "#fff", borderRadius: 12, border: "1px solid #ddd" }}>
-                    <div style={{ fontSize: 32, marginBottom: 8 }}>{item.icon}</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: "#111", marginBottom: 4 }}>{item.label}</div>
-                    <div style={{ fontSize: 12, color: "#999" }}>{item.sub}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
           {/* ── SEGMENT FORMS SECTION ── */}
           <section style={{ padding: "80px 32px", background: "linear-gradient(135deg, #fff9f5 0%, #fff 100%)" }}>
             <div style={{ maxWidth: 900, margin: "0 auto" }}>
               <div style={{ textAlign: "center", marginBottom: 50 }}>
-                <div style={{ fontSize: 14, fontWeight: 900, color: "#E8380D", letterSpacing: "1px", marginBottom: 8 }}>✦ JOIN OUR NETWORK</div>
+                <div style={{ fontSize: 14, fontWeight: 900, color: "#000000", letterSpacing: "1px", marginBottom: 8 }}>JOIN OUR NETWORK</div>
                 <h2 style={{ fontSize: 40, fontWeight: 900, color: "#111", marginBottom: 16, letterSpacing: "-1px" }}>What brings you here?</h2>
                 <p style={{ fontSize: 16, color: "#666", maxWidth: 500, margin: "0 auto", lineHeight: 1.6 }}>Choose your path and join thousands of shoppers, sellers, and delivery partners already using Locaura</p>
               </div>
@@ -2146,14 +2104,14 @@ export default function App() {
                     style={{
                       padding: "14px 28px",
                       borderRadius: 14,
-                      border: "2.5px solid " + (selectedSegment === seg.id ? "#E8380D" : "#e0e0e0"),
-                      background: selectedSegment === seg.id ? "linear-gradient(135deg, #E8380D 0%, #d63905 100%)" : "#fff",
+                      border: "2.5px solid " + (selectedSegment === seg.id ? "#000000" : "#e0e0e0"),
+                      background: selectedSegment === seg.id ? "linear-gradient(135deg, #000000 0%, #000000 100%)" : "#fff",
                       color: selectedSegment === seg.id ? "#fff" : "#111",
                       fontWeight: 800,
                       cursor: "pointer",
                       transition: "all 0.3s ease",
                       fontSize: 15,
-                      boxShadow: selectedSegment === seg.id ? "0 8px 20px rgba(232,56,13,0.3)" : "0 2px 8px rgba(0,0,0,0.05)",
+                      boxShadow: selectedSegment === seg.id ? "0 8px 20px rgba(0,0,0,0.3)" : "0 2px 8px rgba(0,0,0,0.05)",
                     }}
                     onMouseEnter={e => {
                       if (selectedSegment !== seg.id) {
@@ -2226,7 +2184,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                       >
                         <option value="">Select a city</option>
@@ -2257,7 +2215,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                         required 
                       />
@@ -2273,7 +2231,7 @@ export default function App() {
                       type="submit" 
                       style={{ 
                         padding: "14px 24px", 
-                        background: "linear-gradient(135deg, #E8380D 0%, #d63905 100%)", 
+                        background: "#EF4444", 
                         color: "#fff", 
                         border: "none", 
                         borderRadius: 12, 
@@ -2281,12 +2239,12 @@ export default function App() {
                         cursor: "pointer", 
                         transition: "all 0.3s",
                         fontSize: 15,
-                        boxShadow: "0 8px 20px rgba(232,56,13,0.3)"
+                        boxShadow: "0 8px 20px rgba(0,0,0,0.3)"
                       }} 
-                      onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 12px 30px rgba(232,56,13,0.4)"; }} 
-                      onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 8px 20px rgba(232,56,13,0.3)"; }}
+                      onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 12px 30px rgba(0,0,0,0.4)"; }} 
+                      onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)"; }}
                     >
-                      Notify Me When Live 🚀
+                      Notify Me When Live 
                     </button>
                   </form>
                 )}
@@ -2296,12 +2254,12 @@ export default function App() {
                   <div style={{ textAlign: "center" }}>
                     <div style={{ fontSize: 56, marginBottom: 20, animation: "bounce 0.6s" }}>🎉</div>
                     <h3 style={{ fontSize: 24, fontWeight: 900, color: "#111", marginBottom: 8 }}>You're Registered!</h3>
-                    <p style={{ fontSize: 15, color: "#666", marginBottom: 28 }}>Get ₹500 credit on your first order in Locaura</p>
+                    <p style={{ fontSize: 15, color: "#666", marginBottom: 28 }}>Get ₹first free delivery on your first order in Locaura</p>
                     
-                    <div style={{ background: "#fff9f5", border: "2px solid #E8380D", borderRadius: 16, padding: "20px", marginBottom: 24 }}>
+                    <div style={{ background: "#fff9f5", border: "2px solid #000000", borderRadius: 16, padding: "20px", marginBottom: 24 }}>
                       <div style={{ fontSize: 12, color: "#999", fontWeight: 600, marginBottom: 10 }}>YOUR PROMO CODE</div>
                       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <div style={{ fontSize: 20, fontWeight: 900, color: "#E8380D", letterSpacing: "2px", fontFamily: "monospace", flex: 1 }}>
+                        <div style={{ fontSize: 20, fontWeight: 900, color: "#000000", letterSpacing: "2px", fontFamily: "monospace", flex: 1 }}>
                           {segmentFormData.shop.promoCode}
                         </div>
                         <button
@@ -2309,7 +2267,7 @@ export default function App() {
                             navigator.clipboard.writeText(segmentFormData.shop.promoCode);
                             alert("✓ Copied!");
                           }}
-                          style={{ background: "#E8380D", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontWeight: 800, cursor: "pointer", fontSize: 14 }}
+                          style={{ background: "#EF4444", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontWeight: 800, cursor: "pointer", fontSize: 14 }}
                           onMouseEnter={(e) => { e.target.style.transform = "translateY(-2px)"; }}
                           onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; }}
                         >
@@ -2377,7 +2335,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                         required 
                       />
@@ -2400,7 +2358,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                       >
                         <option value="">Select category</option>
@@ -2430,7 +2388,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                         required 
                       />
@@ -2446,7 +2404,7 @@ export default function App() {
                       type="submit" 
                       style={{ 
                         padding: "14px 24px", 
-                        background: "linear-gradient(135deg, #E8380D 0%, #d63905 100%)", 
+                        background: "#EF4444", 
                         color: "#fff", 
                         border: "none", 
                         borderRadius: 12, 
@@ -2454,12 +2412,12 @@ export default function App() {
                         cursor: "pointer", 
                         transition: "all 0.3s",
                         fontSize: 15,
-                        boxShadow: "0 8px 20px rgba(232,56,13,0.3)"
+                        boxShadow: "0 8px 20px rgba(0,0,0,0.3)"
                       }} 
-                      onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 12px 30px rgba(232,56,13,0.4)"; }} 
-                      onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 8px 20px rgba(232,56,13,0.3)"; }}
+                      onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 12px 30px rgba(0,0,0,0.4)"; }} 
+                      onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)"; }}
                     >
-                      Partner With Us ⚡
+                      Partner With Us
                     </button>
                   </form>
                 )}
@@ -2471,10 +2429,10 @@ export default function App() {
                     <h3 style={{ fontSize: 24, fontWeight: 900, color: "#111", marginBottom: 8 }}>Partner Registered!</h3>
                     <p style={{ fontSize: 15, color: "#666", marginBottom: 28 }}>We'll contact you soon with onboarding details</p>
                     
-                    <div style={{ background: "#fff9f5", border: "2px solid #E8380D", borderRadius: 16, padding: "20px", marginBottom: 24 }}>
+                    <div style={{ background: "#fff9f5", border: "2px solid #000000", borderRadius: 16, padding: "20px", marginBottom: 24 }}>
                       <div style={{ fontSize: 12, color: "#999", fontWeight: 600, marginBottom: 10 }}>YOUR PARTNER ID</div>
                       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <div style={{ fontSize: 18, fontWeight: 900, color: "#E8380D", letterSpacing: "2px", fontFamily: "monospace", flex: 1 }}>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: "#000000", letterSpacing: "2px", fontFamily: "monospace", flex: 1 }}>
                           {segmentFormData.sell.promoCode}
                         </div>
                         <button
@@ -2482,7 +2440,7 @@ export default function App() {
                             navigator.clipboard.writeText(segmentFormData.sell.promoCode);
                             alert("✓ Copied!");
                           }}
-                          style={{ background: "#E8380D", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontWeight: 800, cursor: "pointer", fontSize: 14 }}
+                          style={{ background: "#EF4444", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontWeight: 800, cursor: "pointer", fontSize: 14 }}
                           onMouseEnter={(e) => { e.target.style.transform = "translateY(-2px)"; }}
                           onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; }}
                         >
@@ -2549,7 +2507,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                       >
                         <option value="">Select vehicle</option>
@@ -2578,7 +2536,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                         required 
                       />
@@ -2602,7 +2560,7 @@ export default function App() {
                           boxSizing: "border-box",
                           transition: "all 0.2s"
                         }}
-                        onFocus={(e) => { e.target.style.borderColor = "#E8380D"; e.target.style.boxShadow = "0 0 0 3px rgba(232,56,13,0.1)"; }}
+                        onFocus={(e) => { e.target.style.borderColor = "#000000"; e.target.style.boxShadow = "0 0 0 3px rgba(0,0,0,0.1)"; }}
                         onBlur={(e) => { e.target.style.borderColor = "#e0e0e0"; e.target.style.boxShadow = "none"; }}
                         required 
                       />
@@ -2618,7 +2576,7 @@ export default function App() {
                       type="submit" 
                       style={{ 
                         padding: "14px 24px", 
-                        background: "linear-gradient(135deg, #E8380D 0%, #d63905 100%)", 
+                        background: "#EF4444", 
                         color: "#fff", 
                         border: "none", 
                         borderRadius: 12, 
@@ -2626,10 +2584,10 @@ export default function App() {
                         cursor: "pointer", 
                         transition: "all 0.3s",
                         fontSize: 15,
-                        boxShadow: "0 8px 20px rgba(232,56,13,0.3)"
+                        boxShadow: "0 8px 20px rgba(0,0,0,0.3)"
                       }} 
-                      onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 12px 30px rgba(232,56,13,0.4)"; }} 
-                      onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 8px 20px rgba(232,56,13,0.3)"; }}
+                      onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 12px 30px rgba(0,0,0,0.4)"; }} 
+                      onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)"; }}
                     >
                       Join as Delivery Partner 🛵
                     </button>
@@ -2643,10 +2601,10 @@ export default function App() {
                     <h3 style={{ fontSize: 24, fontWeight: 900, color: "#111", marginBottom: 8 }}>Partner Registered!</h3>
                     <p style={{ fontSize: 15, color: "#666", marginBottom: 28 }}>We'll contact you soon with onboarding details and earning opportunities</p>
                     
-                    <div style={{ background: "#fff9f5", border: "2px solid #E8380D", borderRadius: 16, padding: "20px", marginBottom: 24 }}>
+                    <div style={{ background: "#fff9f5", border: "2px solid #000000", borderRadius: 16, padding: "20px", marginBottom: 24 }}>
                       <div style={{ fontSize: 12, color: "#999", fontWeight: 600, marginBottom: 10 }}>YOUR PARTNER ID</div>
                       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <div style={{ fontSize: 18, fontWeight: 900, color: "#E8380D", letterSpacing: "2px", fontFamily: "monospace", flex: 1 }}>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: "#000000", letterSpacing: "2px", fontFamily: "monospace", flex: 1 }}>
                           {segmentFormData.deliver.promoCode}
                         </div>
                         <button
@@ -2654,7 +2612,7 @@ export default function App() {
                             navigator.clipboard.writeText(segmentFormData.deliver.promoCode);
                             alert("✓ Copied!");
                           }}
-                          style={{ background: "#E8380D", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontWeight: 800, cursor: "pointer", fontSize: 14 }}
+                          style={{ background: "#EF4444", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontWeight: 800, cursor: "pointer", fontSize: 14 }}
                           onMouseEnter={(e) => { e.target.style.transform = "translateY(-2px)"; }}
                           onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; }}
                         >
@@ -2686,12 +2644,12 @@ export default function App() {
                 <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="watch" />
               </div>
               <div className="floating-badge" style={{ bottom: 130, left: 16 }}>
-                <div className="fb-icon">⚡</div>
+                <div className="fb-icon"></div>
                 <div><div className="fb-title">Delivered in 2 hrs</div><div className="fb-sub">Order placed · Enroute</div></div>
               </div>
             </div>
             <div>
-              <div className="section-tag" style={{ fontSize: 30 }}>✦ Why Locaura</div>
+              <div className="section-tag" style={{ fontSize: 30 }}>Why Locaura</div>
               <h2 className="section-title">Better products for<br /><span style={{ color: "teal" }}>more people</span></h2>
               <p style={{ fontSize: 19, color: "#888", lineHeight: 1.75, marginTop: 16 }}>
                 For years, same-day delivery was only for groceries. We've changed that — bringing fashion, footwear, and electronics from local stores right to your door, in hours.
@@ -2713,7 +2671,7 @@ export default function App() {
               {[
                 { icon: "📦", value: "50,000", sup: "+", label: "Products" },
                 { icon: "📍", value: "120", sup: "+", label: "Cities", tag: "Coming Soon To" },
-                { icon: "⚡", value: "2 hrs", sup: "", label: "Avg Delivery Time" },
+                { icon: "", value: "2 hrs", sup: "", label: "Avg Delivery Time" },
               ].map(s => (
                 <div key={s.label} className="stat">
                   <div className="stat-icon">{s.icon}</div>
@@ -2728,7 +2686,7 @@ export default function App() {
           {/* ── FEATURES ── */}
           <div className="features-section">
             <div className="features-header">
-              <div className="section-tag">✦ App Features</div>
+              <div className="section-tag">App Features</div>
               <h2 className="section-title">What's waiting for you<br />on the app?</h2>
               <p className="features-sub">Our app is packed with features that enable you to experience retail delivery like never before.</p>
             </div>
@@ -2744,7 +2702,7 @@ export default function App() {
               <div className="phone-wrap">
                 <div className="phone-screen">
                   <div className="phone-topbar"><span>9:41</span><span>● ● ●</span></div>
-                  <div className="phone-brand">⚡ Locaura</div>
+                  <div className="phone-brand">Locaura</div>
                   <div className="phone-city">Mumbai · Same-day delivery</div>
                   <div className="phone-search">
                     <span style={{ opacity: 0.5 }}>🔍</span>
@@ -2777,12 +2735,12 @@ export default function App() {
           </div>
 
           {/* ── LIVE WAITLIST COUNTER ── */}
-          <section style={{ background: "linear-gradient(135deg, #E8380D, #ff6b35)", padding: "40px 32px", textAlign: "center", color: "#fff" }}>
-            <div style={{ fontSize: 48, fontWeight: 900, marginBottom: 8 }} >🚀 {waitlistCount.toLocaleString()}</div>
+          <section style={{ background: "#EF4444", padding: "40px 32px", textAlign: "center", color: "#fff" }}>
+            <div style={{ fontSize: 48, fontWeight: 900, marginBottom: 8 }} > {waitlistCount.toLocaleString()}</div>
             <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 20 }}>People Already Waiting</div>
-            <p style={{ fontSize: 14, marginBottom: 20, opacity: 0.9 }}>Join them and get exclusive early access + ₹500 credit</p>
-            <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#fff", color: "#E8380D", padding: "12px 28px", border: "none", borderRadius: 8, fontWeight: 800, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
-              Join the Waitlist ⚡
+            <p style={{ fontSize: 14, marginBottom: 20, opacity: 0.9 }}>Join them and get exclusive early access + ₹first free delivery</p>
+            <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#fff", color: "#000000", padding: "12px 28px", border: "none", borderRadius: 8, fontWeight: 800, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
+              Join the Waitlist
             </button>
           </section>
 
@@ -2795,9 +2753,9 @@ export default function App() {
               <div style={{ overflowX: "auto" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
-                    <tr style={{ borderBottom: "2px solid #E8380D" }}>
+                    <tr style={{ borderBottom: "2px solid #000000" }}>
                       <th style={{ padding: "16px", textAlign: "left", fontWeight: 900, color: "#111" }}>Feature</th>
-                      <th style={{ padding: "16px", textAlign: "center", fontWeight: 900, color: "#E8380D" }}>Locaura</th>
+                      <th style={{ padding: "16px", textAlign: "center", fontWeight: 900, color: "#000000" }}>Locaura</th>
                       <th style={{ padding: "16px", textAlign: "center", fontWeight: 700, color: "#999" }}>Dunzo</th>
                       <th style={{ padding: "16px", textAlign: "center", fontWeight: 700, color: "#999" }}>Blinkit</th>
                       <th style={{ padding: "16px", textAlign: "center", fontWeight: 700, color: "#999" }}>Flipkart</th>
@@ -2814,7 +2772,7 @@ export default function App() {
                     ].map((row, i) => (
                       <tr key={i} style={{ borderBottom: "1px solid #eee", background: i % 2 === 0 ? "#fafafa" : "#fff" }}>
                         <td style={{ padding: "16px", fontWeight: 700, color: "#111" }}>{row.feature}</td>
-                        <td style={{ padding: "16px", textAlign: "center", color: "#E8380D", fontSize: 18 }}>{row.locaura ? "✓" : "✗"}</td>
+                        <td style={{ padding: "16px", textAlign: "center", color: "#000000", fontSize: 18 }}>{row.locaura ? "✓" : "✗"}</td>
                         <td style={{ padding: "16px", textAlign: "center", color: "#999" }}>{row.dunzo ? "✓" : "✗"}</td>
                         <td style={{ padding: "16px", textAlign: "center", color: "#999" }}>{row.blinkit ? "✓" : "✗"}</td>
                         <td style={{ padding: "16px", textAlign: "center", color: "#999" }}>{row.flipkart ? "✓" : "✗"}</td>
@@ -2827,7 +2785,7 @@ export default function App() {
           </section>
 
           {/* ── PROGRESS INDICATOR & MILESTONE ── */}
-          <section style={{ padding: "56px 32px", background: "#fff5f3", textAlign: "center" }}>
+          <section style={{ padding: "56px 32px", background: "rgba(14,165,233,0.06)", textAlign: "center" }}>
             <div style={{ maxWidth: 700, margin: "0 auto" }}>
               <h3 style={{ fontSize: 24, fontWeight: 900, color: "#111", marginBottom: 20 }}>You're on the list! 🎉</h3>
               <p style={{ fontSize: 14, color: "#666", marginBottom: 24 }}>Help us reach our next milestone</p>
@@ -2835,35 +2793,35 @@ export default function App() {
               <div style={{ background: "#fff", padding: "24px", borderRadius: 16, border: "1.5px solid #ffd5cc" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
                   <span style={{ fontWeight: 800, color: "#111" }}>Progress to 1,000 Members</span>
-                  <span style={{ fontWeight: 800, color: "#E8380D" }}>{Math.round((waitlistCount / 1000) * 100)}%</span>
+                  <span style={{ fontWeight: 800, color: "#000000" }}>{Math.round((waitlistCount / 1000) * 100)}%</span>
                 </div>
                 <div style={{ width: "100%", height: 12, background: "#f0f0f0", borderRadius: 100, overflow: "hidden", marginBottom: 20 }}>
-                  <div style={{ width: `${Math.min(100, (waitlistCount / 1000) * 100)}%`, height: "100%", background: "#E8380D", transition: "width 0.5s ease" }}></div>
+                  <div style={{ width: `${Math.min(100, (waitlistCount / 1000) * 100)}%`, height: "100%", background: "#EF4444", transition: "width 0.5s ease" }}></div>
                 </div>
                 <p style={{ fontSize: 13, color: "#111", marginBottom: 8 }}><strong>{waitlistCount} / 1,000 Members</strong></p>
                 <p style={{ fontSize: 12, color: "#666", marginBottom: 16 }}>Once we hit 1K, everyone gets exclusive launch day benefits. Help us get there!</p>
                 <button onClick={() => {
-                  const text = "Join Locaura - Same-day delivery from local stores in Vizag! Get ₹500 credit.";
+                  const text = "Join Locaura - Same-day delivery from local stores in Vizag! Get ₹first free delivery.";
                   if (navigator.share) {
                     navigator.share({ title: "Locaura", text, url: "https://locaura.in" }).catch(() => {});
                   } else {
                     const shareURL = "https://locaura.in";
                     navigator.clipboard.writeText(shareURL).then(() => alert("✓ Link copied! Share with friends: " + shareURL)).catch(() => alert(shareURL));
                   }
-                }} style={{ background: "#E8380D", color: "#fff", padding: "10px 24px", border: "none", borderRadius: 8, fontWeight: 800, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
-                  📤 Share
+                }} style={{ background: "#EF4444", color: "#fff", padding: "10px 24px", border: "none", borderRadius: 8, fontWeight: 800, cursor: "pointer", transition: "all 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
+                   Share
                 </button>
               </div>
             </div>
           </section>
 
           {/* ── RISK REVERSAL SECTION ── */}
-          <section style={{ padding: "56px 32px", background: "#f0f9f0", textAlign: "center" }}>
+          <section style={{ padding: "56px 32px", background: "rgba(14,165,233,0.08)", textAlign: "center" }}>
             <div style={{ maxWidth: 900, margin: "0 auto" }}>
               <h3 style={{ fontSize: 28, fontWeight: 900, color: "#111", marginBottom: 40 }}>100% Risk-Free Guarantee</h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24 }}>
                 {[
-                  { icon: "⚡", title: "2-Hour Delivery or Free", desc: "If we don't deliver in 2 hours, it's completely free." },
+                  { icon: "", title: "2-Hour Delivery or Free", desc: "If we don't deliver in 2 hours, it's completely free." },
                   { icon: "🔄", title: "24-Hour Easy Returns", desc: "Return anytime, no questions asked. Free pickup." },
                   { icon: "💰", title: "Best Price Guarantee", desc: "Can't find cheaper locally? We'll beat it by ₹50." },
                 ].map((item, i) => (
@@ -2884,39 +2842,33 @@ export default function App() {
               
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 24, marginBottom: 40 }}>
                 {[
-                  { title: "Traditional E-com", wording: "3-7 Day Wait", emoji: "📦", color: "#999" },
-                  { title: "Uber/Dunzo", wording: "Only Essentials", emoji: "🛒", color: "#FFB81C" },
-                  { title: "Blinkit/Instamart", wording: "Grocery Only", emoji: "🥦", color: "#00A0DF" },
-                  { title: "Locaura", wording: "Fashion + Speed", emoji: "⚡", color: "#E8380D" },
+                  { title: "Traditional E-com", wording: "3-7 Day Wait", emoji: "📦", color: "#999", isLocaura: false },
+                  { title: "Uber/Dunzo", wording: "Only Essentials", emoji: "🛒", color: "#FFB81C", isLocaura: false },
+                  { title: "Blinkit/Instamart", wording: "Grocery Only", emoji: "🥦", color: "#00A0DF", isLocaura: false },
+                  { title: "Locaura", wording: "Fashion + Speed", color: "#EF4444", isLocaura: true },
                 ].map((comp, i) => (
-                  <div key={i} style={{ padding: "24px", background: i === 3 ? "linear-gradient(135deg, #E8380D, #ff6b35)" : "#f5f5f5", borderRadius: 16, color: i === 3 ? "#fff" : "#111" }}>
-                    <div style={{ fontSize: 40, marginBottom: 12 }}>{comp.emoji}</div>
+                  <div key={i} style={{ padding: "24px", background: comp.isLocaura ? "linear-gradient(135deg, #EF4444 0%, #DC2626 100%)" : "#f5f5f5", borderRadius: 16, color: comp.isLocaura ? "#fff" : "#111", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "180px" }}>
+                    {comp.isLocaura ? (
+                      <img src={logo} alt="Locaura" style={{ width: 48, height: 48, borderRadius: 12, marginBottom: 12, objectFit: "cover" }} />
+                    ) : (
+                      <div style={{ fontSize: 40, marginBottom: 12 }}>{comp.emoji}</div>
+                    )}
                     <h4 style={{ fontWeight: 900, marginBottom: 8 }}>{comp.title}</h4>
                     <p style={{ fontSize: 14, opacity: 0.9 }}>{comp.wording}</p>
                   </div>
                 ))}
               </div>
 
-              <div style={{ background: "#E8380D", color: "#fff", padding: "32px 24px", borderRadius: 16 }}>
+              <div style={{ background: "#EF4444", color: "#fff", padding: "32px 24px", borderRadius: 16 }}>
                 <p style={{ fontSize: 24, fontWeight: 900, marginBottom: 12 }}>We're the Missing Link</p>
                 <p style={{ fontSize: 14, opacity: 0.95 }}>Fast like Blinkit. Fashion like Flipkart. Local like Dunzo.</p>
               </div>
             </div>
           </section>
-
-          {/* ── FEATURED IN ── */}
-          <section style={{ padding: "56px 32px", background: "#fff", textAlign: "center" }}>
-            <h3 style={{ fontSize: 14, fontWeight: 800, color: "#999", marginBottom: 32, letterSpacing: 1 }}>FEATURED IN</h3>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 40, flexWrap: "wrap" }}>
-              {["TechCrunch", "YCombinator", "Forbes", "NDTV", "Business Today"].map((p, i) => (
-                <div key={i} style={{ fontSize: 13, fontWeight: 800, color: "#aaa", opacity: 0.7 }}>{p}</div>
-              ))}
-            </div>
-          </section>
           <section className="early-access-band">
             <div className="early-access-inner">
               <div className="early-access-eyebrow">🚀 Limited Time Offer</div>
-              <h2 className="early-access-title">Get ₹500 Free Credit<br />When You Join Now</h2>
+              <h2 className="early-access-title">Get Free Delivery on First Order<br />When You Join Now</h2>
               <p className="early-access-sub">
                 <span style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", display: "block", marginBottom: 10 }}>
                   ✓ Available in 5 Cities • 120+ Coming Soon
@@ -2930,8 +2882,8 @@ export default function App() {
                 <div style={{ background: "rgba(255,255,255,0.05)", border: "1.5px solid rgba(255,255,255,0.15)", borderRadius: 16, padding: 24, textAlign: "center" }}>
                   <div style={{ fontSize: 24, marginBottom: 8 }}>👕</div>
                   <h3 style={{ fontSize: 14, fontWeight: 900, color: "#fff", marginBottom: 8 }}>For Shoppers</h3>
-                  <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#E8380D", color: "#fff", border: "none", borderRadius: 10, padding: "10px 20px", fontWeight: 800, fontSize: 13, cursor: "pointer", width: "100%", transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.background = "#c72d08"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.target.style.background = "#E8380D"; e.target.style.transform = "translateY(0)"; }}>
-                    Join Waitlist ⚡
+                  <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#EF4444", color: "#fff", border: "none", borderRadius: 10, padding: "10px 20px", fontWeight: 800, fontSize: 13, cursor: "pointer", width: "100%", transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}>
+                    Join Waitlist
                   </button>
                 </div>
 
@@ -2961,14 +2913,16 @@ export default function App() {
           {/* ── ECOSYSTEM ── */}
           <section className="eco-section">
             <div className="eco-header">
-              <div className="section-tag">✦ The Locaura Universe</div>
+              <div className="section-tag">The Locaura Universe</div>
               <div className="eco-eternal">Our Services</div>
               <div className="eco-sub">Powering India's Changing Shopping Habits</div>
             </div>
             <div className="eco-grid">
               {apps.map(a => (
                 <div key={a.name} className="eco-card">
-                  <div className="eco-icon" style={{ background: a.bg }}>{a.icon}</div>
+                  <div className="eco-icon" style={{ background: a.bg }}>
+                    {a.image ? <img src={a.image} alt={a.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 20 }} /> : a.icon}
+                  </div>
                   <div className="eco-tag">{a.tag}</div>
                   <div className="eco-name">{a.name}</div>
                   <div className="eco-desc">{a.desc}</div>
@@ -2980,7 +2934,7 @@ export default function App() {
 
           {/* ── CATEGORIES ── */}
           <section className="cat-section">
-            <div className="section-tag">✦ Browse by Category</div>
+            <div className="section-tag">Browse by Category</div>
             <h2 className="section-title">Everything you need,<br />delivered today</h2>
             <div className="cat-chips">
               {categories.map(c => (
@@ -2991,11 +2945,39 @@ export default function App() {
             </div>
           </section>
 
+          {/* ── TRUST & SAFETY SECTION ── */}
+          <section style={{ background: "linear-gradient(135deg, #030712 0%, #0F172A 100%)", padding: "80px 32px", textAlign: "center" }}>
+            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+              <div style={{ marginBottom: 60 }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: "#EF4444", letterSpacing: "2px", marginBottom: 12, textTransform: "uppercase" }}>Security & Compliance</div>
+                <h2 style={{ fontSize: 42, fontWeight: 900, color: "#fff", marginBottom: 16, letterSpacing: "-1px" }}>Your Trust Matters</h2>
+                <p style={{ fontSize: 18, color: "rgba(255,255,255,0.6)", maxWidth: 600, margin: "0 auto" }}>Built with industry-leading security, compliance, and customer protection</p>
+              </div>
+              
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 28, marginBottom: 20 }}>
+                {[
+                  { label: "RBI Approved Payment", sub: "Razorpay & NPCI Certified Gateway" },
+                  { label: "256-Bit SSL Encryption", sub: "Bank-Grade Security Standard" },
+                  { label: "GST Compliant", sub: "Fully Legal & Documented Operations" },
+                  { label: "Consumer Protection", sub: "E-Commerce Rules 2020 Compliant" },
+                  { label: "Registered Entity", sub: "Licensed & DPIIT Recognized Startup" },
+                  { label: "Verified Retailers", sub: "100% Authentic & Documented Sellers" },
+                ].map((item, i) => (
+                  <div key={i} style={{ padding: "32px 24px", background: "rgba(239, 68, 68, 0.08)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: 16, transition: "all 0.3s" }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.15)"; e.currentTarget.style.borderColor = "rgba(239, 68, 68, 0.4)"; e.currentTarget.style.transform = "translateY(-4px)"; }} onMouseLeave={e => { e.currentTarget.style.background = "rgba(239, 68, 68, 0.08)"; e.currentTarget.style.borderColor = "rgba(239, 68, 68, 0.2)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: "#EF4444", letterSpacing: "1px", marginBottom: 8, textTransform: "uppercase" }}>Certified</div>
+                    <div style={{ fontSize: 16, fontWeight: 900, color: "#fff", marginBottom: 6 }}>{item.label}</div>
+                    <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{item.sub}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* ── FAQ SECTION ── */}
           <section style={{ padding: "72px 32px", background: "#fafafa" }}>
             <div style={{ maxWidth: 700, margin: "0 auto" }}>
               <div style={{ textAlign: "center", marginBottom: 56 }}>
-                <div className="section-tag">✦ Questions?</div>
+                <div className="section-tag">Questions?</div>
                 <h2 className="section-title">Frequently Asked Questions</h2>
               </div>
               
@@ -3017,9 +2999,9 @@ export default function App() {
                 ))}
               </div>
 
-              <div style={{ marginTop: 40, padding: "20px 24px", background: "#fff5f3", borderRadius: 12, textAlign: "center" }}>
+              <div style={{ marginTop: 40, padding: "20px 24px", background: "rgba(14,165,233,0.06)", borderRadius: 12, textAlign: "center" }}>
                 <p style={{ fontSize: 14, color: "#333", marginBottom: 12 }}>Still have questions?</p>
-                <a href="mailto:support@locaura.in" style={{ color: "#E8380D", fontWeight: 800, textDecoration: "none" }}>
+                <a href="mailto:support@locaura.in" style={{ color: "#000000", fontWeight: 800, textDecoration: "none" }}>
                   Email us → support@locaura.in
                 </a>
               </div>
@@ -3029,11 +3011,11 @@ export default function App() {
           {/* ── DOWNLOAD ── */}
           <div className="download-wrap">
             <div>
-              <div className="section-tag">✦ Get the App</div>
+              <div className="section-tag">Get the App</div>
               <h2 className="download-title">Download the<br />app <span>now!</span></h2>
               <p className="download-sub">Experience seamless same-day shopping on the Locaura app.<br />Available on Android — free to download.</p>
               <div className="store-btns" style={{ justifyContent: "flex-start" }}>
-                <a href="#" className="store-btn-dl">
+                <a href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" className="store-btn-dl">
                   <GooglePlayIcon />
                   <div className="store-btn-labels"><small>GET IT ON</small><strong>Google Play</strong></div>
                 </a>
@@ -3048,14 +3030,14 @@ export default function App() {
                       const val = ((r * 13 + c * 7 + r * c) % 3) === 0;
                       const isFinder = (r < 4 && c < 4) || (r < 4 && c > 6) || (r > 6 && c < 4);
                       return (val || isFinder) ? (
-                        <rect key={`${r}-${c}`} x={c * 10} y={r * 10} width={9} height={9} fill={isFinder ? "#E8380D" : "#fff"} rx={1.5} />
+                        <rect key={`${r}-${c}`} x={c * 10} y={r * 10} width={9} height={9} fill={isFinder ? "#000000" : "#fff"} rx={1.5} />
                       ) : null;
                     })
                   )}
                 </svg>
               </div>
               <div className="qr-pill">
-                <span style={{ fontSize: 28 }}>⚡</span>
+                <span style={{ fontSize: 28 }}></span>
                 <div><div className="qr-pill-name">Locaura</div><div className="qr-pill-sub">Same-Day Delivery App</div></div>
               </div>
             </div>
@@ -3068,7 +3050,7 @@ export default function App() {
         <div className="policy-breadcrumb">
           <span className="policy-breadcrumb-home" onClick={() => navigate("home")}>🏠 Home</span>
           <span>›</span>
-          <span style={{ color: "#E8380D" }}>
+          <span style={{ color: "#000000" }}>
             {allPolicies.find(p => p.page === currentPage)?.label || "Policy"}
           </span>
         </div>
