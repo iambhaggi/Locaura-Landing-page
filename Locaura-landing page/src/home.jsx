@@ -32,6 +32,7 @@ function WaitlistForm({ dark = false }) {
   const [submitted, setSubmitted] = useState(false);
   const [promoCode, setPromoCode] = useState("");
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +61,7 @@ function WaitlistForm({ dark = false }) {
         console.log("Waitlist saved:", data);
         setPromoCode(data.promoCode);
         setSubmitted(true);
+        setCopied(false);
         setError("");
         setEmail("");
         setName("");
@@ -79,70 +81,76 @@ function WaitlistForm({ dark = false }) {
         background: dark ? "rgba(14,165,233,0.1)" : "rgba(14,165,233,0.06)",
         border: `1.5px solid ${dark ? "rgba(14,165,233,0.4)" : "rgba(14,165,233,0.3)"}`,
         borderRadius: 20,
-        padding: "32px 28px",
+        padding: "clamp(18px, 4vw, 32px) clamp(14px, 4vw, 28px)",
         textAlign: "center",
         maxWidth: 520,
         margin: "0 auto",
       }}>
-        <div style={{ fontSize: 48, marginBottom: 16, animation: "bounce 0.6s" }}>🎉</div>
-        <div style={{ fontSize: 20, fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 4 }}>Successfully Registered!</div>
-        <div style={{ fontSize: 14, color: dark ? "rgba(255,255,255,0.6)" : "#666", marginBottom: 24 }}>Your exclusive promo code for free delivery:</div>
+        <div style={{ fontSize: "clamp(34px, 10vw, 48px)", marginBottom: 12, animation: "bounce 0.6s" }}>🎉</div>
+        <div style={{ fontSize: "clamp(17px, 5vw, 20px)", fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 4 }}>Successfully Registered!</div>
+        <div style={{ fontSize: "clamp(12px, 3.3vw, 14px)", color: dark ? "rgba(255,255,255,0.6)" : "#666", marginBottom: 18 }}>Your exclusive promo code for free delivery:</div>
         
         <div style={{
           background: dark ? "rgba(0,0,0,0.25)" : "#fff",
           border: `2.5px solid #000000`,
           borderRadius: 16,
-          padding: "16px 20px",
-          marginBottom: 20,
+          padding: "clamp(12px, 3.4vw, 16px)",
+          marginBottom: 16,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 12
+          gap: 10,
+          flexWrap: "wrap"
         }}>
           <div style={{
-            fontSize: 18,
+            fontSize: "clamp(15px, 4.2vw, 18px)",
             fontWeight: 900,
             color: "#000000",
-            letterSpacing: "2px",
-            fontFamily: "monospace"
+            letterSpacing: "1.2px",
+            fontFamily: "monospace",
+            flex: "1 1 100%",
+            textAlign: "center",
+            overflowWrap: "anywhere"
           }}>
             {promoCode}
           </div>
           <button
             onClick={() => {
               navigator.clipboard.writeText(promoCode).then(() => {
-                alert("✓ Promo code copied!");
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1600);
               });
             }}
             style={{
-              background: "#EF4444",
+              background: copied ? "#16A34A" : "#EF4444",
               color: "#fff",
               border: "none",
-              padding: "8px 16px",
+              padding: "10px 16px",
               borderRadius: 8,
               fontWeight: 800,
               fontSize: 12,
               cursor: "pointer",
               whiteSpace: "nowrap",
-              transition: "all 0.2s"
+              transition: "all 0.2s",
+              width: "100%"
             }}
-            onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
-            onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}
+            onMouseEnter={e => { e.target.style.background = copied ? "#15803D" : "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { e.target.style.background = copied ? "#16A34A" : "#EF4444"; e.target.style.transform = "translateY(0)"; }}
           >
-            Copy
+            {copied ? "Copied" : "Copy"}
           </button>
         </div>
 
-        <div style={{ background: dark ? "rgba(14,165,233,0.08)" : "rgba(14,165,233,0.06)", borderRadius: 12, padding: "16px", marginBottom: 16, border: `1px solid ${dark ? "rgba(14,165,233,0.25)" : "rgba(14,165,233,0.2)"}` }}>
-          <div style={{ fontSize: 13, fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 6 }}>💚 How to use:</div>
-          <div style={{ fontSize: 12, color: dark ? "rgba(255,255,255,0.7)" : "#666", lineHeight: 1.6 }}>
+        <div style={{ background: dark ? "rgba(14,165,233,0.08)" : "rgba(14,165,233,0.06)", borderRadius: 12, padding: "clamp(12px, 3.2vw, 16px)", marginBottom: 14, border: `1px solid ${dark ? "rgba(14,165,233,0.25)" : "rgba(14,165,233,0.2)"}` }}>
+          <div style={{ fontSize: 13, fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 6 }}>How to use:</div>
+          <div style={{ fontSize: "clamp(11px, 3.1vw, 12px)", color: dark ? "rgba(255,255,255,0.7)" : "#666", lineHeight: 1.6 }}>
             1. Download the Locaura app (coming soon)<br />
             2. Enter this code at checkout on your first order<br />
             3. Get FREE same-day delivery
           </div>
         </div>
 
-        <div style={{ fontSize: 12, color: dark ? "rgba(255,255,255,0.5)" : "#999", marginBottom: 16 }}>
+        <div style={{ fontSize: "clamp(11px, 3vw, 12px)", color: dark ? "rgba(255,255,255,0.5)" : "#999", marginBottom: 14 }}>
           We'll notify you when the app launches in your area!
         </div>
 
