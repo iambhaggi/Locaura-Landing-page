@@ -4,8 +4,18 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+app.options("*", cors());
 app.use(express.json());
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 require("dotenv").config();
 
 // MongoDB connection
