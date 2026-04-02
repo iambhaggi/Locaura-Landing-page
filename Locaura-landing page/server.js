@@ -37,10 +37,25 @@ const RetailerSchema = new mongoose.Schema({
   mobile: String,
   shopName: String,
   location: String,
+  segment: { type: String, default: 'sell' },
+  promoCode: { type: String, unique: true },
   timestamp: { type: Date, default: Date.now }
 });
 
 const Retailer = mongoose.model("Retailer", RetailerSchema);
+
+// Delivery Partner Schema
+const DeliverySchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  mobile: String,
+  city: String,
+  segment: { type: String, default: 'deliver' },
+  promoCode: { type: String, unique: true },
+  timestamp: { type: Date, default: Date.now }
+});
+
+const Delivery = mongoose.model("Delivery", DeliverySchema);
 
 // Generate unique promo code
 function generatePromoCode(email, count) {
@@ -60,7 +75,11 @@ app.post("/waitlist", async (req, res) => {
     // Check if email already exists
     const existingUser = await Waitlist.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already registered", user: existingUser });
+      return res.status(200).json({ 
+        message: "Email already registered", 
+        promoCode: existingUser.promoCode,
+        user: existingUser 
+      });
     }
 
     const newUser = new Waitlist({ 
@@ -94,12 +113,69 @@ app.post("/waitlist", async (req, res) => {
 // Retailer Partnership Registration
 app.post("/retailer", async (req, res) => {
   try {
-    const { name, email, mobile, shopName, location } = req.body;
+    const { name, email, mobile, shopName, location, category } = req.body;
 
-    const newRetailer = new Retailer({ name, email, mobile, shopName, location });
+    // Check if email already exists
+    const existingRetailer = await Retailer.findOne({ email });
+    if (existingRetailer) {
+      return res.status(200).json({ 
+        message: "Email already registered", 
+        promoCode: existingRetailer.promoCode,
+        retailer: existingRetailer 
+      });
+    }
+
+    const newRetailer = new Retailer({ 
+      name: name || email.split("@")[0],
+      email, 
+      mobile, 
+      shopName, 
+      location,
+      segment: 'sell',
+      promoCode: generatePromoCode(email)
+    });
     await newRetailer.save();
 
-    res.json({ message: "Retailer registered successfully", retailer: newRetailer });
+    res.json({ 
+      message: "Retailer registered successfully", 
+      promoCode: newRetailer.promoCode,
+      retailer: newRetailer 
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Delivery Partner Registration
+app.post("/delivery", async (req, res) => {
+  try {
+    const { name, email, mobile, city } = req.body;
+
+    // Check if email already exists
+    const existingDelivery = await Delivery.findOne({ email });
+    if (existingDelivery) {
+      return res.status(200).json({ 
+        message: "Email already registered", 
+        promoCode: existingDelivery.promoCode,
+        delivery: existingDelivery 
+      });
+    }
+
+    const newDelivery = new Delivery({ 
+      name: name || email.split("@")[0],
+      email, 
+      mobile, 
+      city,
+      segment: 'deliver',
+      promoCode: generatePromoCode(email)
+    });
+    await newDelivery.save();
+
+    res.json({ 
+      message: "Delivery partner registered successfully", 
+      promoCode: newDelivery.promoCode,
+      delivery: newDelivery 
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
