@@ -2,6 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import logo from "./assets/Locaura.png";
 import videoBg from "./assets/Locauravideo.mp4";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+
+// API Configuration
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 // Hook for scroll-triggered animations
 function useScrollReveal(threshold = 0.2) {
   const ref = useRef(null);
@@ -37,7 +41,7 @@ function WaitlistForm({ dark = false }) {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/waitlist", {
+      const res = await fetch(`${API_URL}/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -246,7 +250,7 @@ function EarlyAccessForms({ dark = false }) {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/retailer", {
+      const res = await fetch(`${API_URL}/retailer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1912,7 +1916,7 @@ export default function App() {
                     return;
                   }
                   try {
-                    const res = await fetch("http://localhost:5000/waitlist", {
+                    const res = await fetch(`${API_URL}/waitlist`, {
                       method: "POST",
                       headers: {
                         "Content-Type": "application/json"
@@ -2237,7 +2241,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch("http://localhost:5000/waitlist", {
+                    fetch(`${API_URL}/waitlist`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -2387,7 +2391,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch("http://localhost:5000/retailer", {
+                    fetch(`${API_URL}/retailer`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -2560,7 +2564,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch("http://localhost:5000/delivery", {
+                    fetch(`${API_URL}/delivery`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
