@@ -3,9 +3,6 @@ import logo from "./assets/Locaura.png";
 import videoBg from "./assets/Locauravideo.mp4";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
-// API Configuration
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 // Hook for scroll-triggered animations
 function useScrollReveal(threshold = 0.2) {
   const ref = useRef(null);
@@ -41,7 +38,7 @@ function WaitlistForm({ dark = false }) {
     }
 
     try {
-      const res = await fetch(`${API_URL}/waitlist`, {
+      const res = await fetch(`https://locaura-landing-page.up.railway.app/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -250,7 +247,7 @@ function EarlyAccessForms({ dark = false }) {
     }
 
     try {
-      const res = await fetch(`${API_URL}/retailer`, {
+      const res = await fetch(`https://locaura-landing-page.up.railway.app/retailer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1916,7 +1913,7 @@ export default function App() {
                     return;
                   }
                   try {
-                    const res = await fetch(`${API_URL}/waitlist`, {
+                    const res = await fetch(`https://locaura-landing-page.up.railway.app/waitlist`, {
                       method: "POST",
                       headers: {
                         "Content-Type": "application/json"
@@ -2241,7 +2238,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch(`${API_URL}/waitlist`, {
+                    fetch(`https://locaura-landing-page.up.railway.app/waitlist`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -2391,7 +2388,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch(`${API_URL}/retailer`, {
+                    fetch(`https://locaura-landing-page.up.railway.app/retailer`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -2564,7 +2561,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch(`${API_URL}/delivery`, {
+                    fetch(`https://locaura-landing-page.up.railway.app/delivery`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
