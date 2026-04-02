@@ -38,7 +38,7 @@ function WaitlistForm({ dark = false }) {
     }
 
     try {
-      const res = await fetch(`https://locaura-landing-page.up.railway.app/waitlist`, {
+      const res = await fetch(`https://locaura-landing-page-production.up.railway.app/waitlist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -247,7 +247,7 @@ function EarlyAccessForms({ dark = false }) {
     }
 
     try {
-      const res = await fetch(`https://locaura-landing-page.up.railway.app/retailer`, {
+      const res = await fetch(`https://locaura-landing-page-production.up.railway.app/retailer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -1913,7 +1913,7 @@ export default function App() {
                     return;
                   }
                   try {
-                    const res = await fetch(`https://locaura-landing-page.up.railway.app/waitlist`, {
+                    const res = await fetch(`https://locaura-landing-page-production.up.railway.app/waitlist`, {
                       method: "POST",
                       headers: {
                         "Content-Type": "application/json"
@@ -2238,7 +2238,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch(`https://locaura-landing-page.up.railway.app/waitlist`, {
+                    fetch(`https://locaura-landing-page-production.up.railway.app/waitlist`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -2388,7 +2388,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch(`https://locaura-landing-page.up.railway.app/retailer`, {
+                    fetch(`https://locaura-landing-page-production.up.railway.app/retailer`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -2561,7 +2561,7 @@ export default function App() {
                       return;
                     }
                     
-                    fetch(`https://locaura-landing-page.up.railway.app/delivery`, {
+                    fetch(`https://locaura-landing-page-production.up.railway.app/delivery`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
