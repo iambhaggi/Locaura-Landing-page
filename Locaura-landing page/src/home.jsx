@@ -1236,9 +1236,9 @@ export default function App() {
 
     /* ── BETTER ── */
     .better-wrap { padding: 100px 80px; max-width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
-    .better-images { position: relative; height: 500px; }
+    .better-images { position: relative; height: 500px; display: flex; justify-content: center; align-items: flex-start; }
     .img-card { position: absolute; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 72px rgba(0,0,0,0.15); opacity: 0; transition: opacity 0.7s ease, transform 0.7s ease; }
-    .img-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-card img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
     .img-card-0 { transform: translateX(-60px) rotate(-4deg); }
     .img-card-1 { transform: translateY(60px) rotate(3deg); }
     .img-card-2 { transform: translateX(60px) rotate(-3deg); }
@@ -1264,6 +1264,9 @@ export default function App() {
     .benefit-icon { width: 48px; height: 48px; border-radius: 14px; background: #fff2ec; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
     .benefit-title { font-size: 16px; font-weight: 800; color: #111; margin-bottom: 4px; }
     .benefit-desc { font-size: 14px; color: #999; line-height: 1.55; }
+
+    /* ── WHY LOCAURA SECTION ── */
+    .why-locaura-desc { font-size: 19px; color: #888; line-height: 1.75; margin-top: 16px; }
 
     /* ── STATS ── */
     .stats-bar { border-top: 1px solid #efefef; border-bottom: 1px solid #efefef; }
@@ -1455,9 +1458,9 @@ export default function App() {
       .store-btn-secondary { width: 100%; }
 
       .better-wrap { padding: 40px 16px; grid-template-columns: 1fr; gap: 30px; display: flex; flex-direction: column-reverse; text-align: center; }
-      .better-images { height: 280px; position: relative; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; }
-      .img-card { position: absolute; width: 85%; max-width: 240px; height: 220px; left: 50% !important; transform: translateX(-50%) !important; }
-      .img-card-0 { transform: translateX(-50%) !important; opacity: 1 !important; z-index: 1; top: 0; }
+      .better-images { height: 270px; position: relative; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; width: 100%; overflow: hidden; }
+      .img-card { position: absolute; width: min(86vw, 250px); height: min(70vw, 220px); left: 50% !important; right: auto !important; top: 10px !important; bottom: auto !important; transform: translateX(-50%) !important; }
+      .img-card-0 { transform: translateX(-50%) !important; opacity: 1 !important; z-index: 2; }
       .img-card-1 { display: none; }
       .img-card-2 { display: none; }
       
@@ -1504,9 +1507,9 @@ export default function App() {
       .section-tag { font-size: 12px; text-align: center; }
       
       .better-wrap { padding: 30px 16px; gap: 20px; display: flex; flex-direction: column-reverse; text-align: center; align-items: center; }
-      .better-images { height: 280px; max-height: 280px; position: relative; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; width: 100%; }
-      .img-card { width: 85%; max-width: 240px; height: 220px; left: 50% !important; transform: translateX(-50%) !important; }
-      .img-card-0 { transform: translateX(-50%) !important; opacity: 1 !important; z-index: 1; left: 50% !important; top: 0; }
+      .better-images { height: 250px; max-height: 250px; position: relative; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; width: 100%; overflow: hidden; }
+      .img-card { width: min(88vw, 230px); height: min(66vw, 200px); left: 50% !important; right: auto !important; top: 8px !important; bottom: auto !important; transform: translateX(-50%) !important; }
+      .img-card-0 { transform: translateX(-50%) !important; opacity: 1 !important; z-index: 2; left: 50% !important; }
       .img-card-1 { display: none; }
       .img-card-2 { display: none; }
       .benefit-item { gap: 12px; flex-direction: column; align-items: center; text-align: center; }
@@ -1514,6 +1517,7 @@ export default function App() {
       .benefit-title { font-size: 14px; }
       .benefit-desc { font-size: 13px; }
       .benefit-list { text-align: center; }
+      .why-locaura-desc { font-size: 14px; }
       
       .stats-inner { padding: 30px 16px; grid-template-columns: 1fr; text-align: center; }
       .stat { padding: 20px 0; text-align: center; }
@@ -1573,14 +1577,22 @@ export default function App() {
       .hero-sub { font-size: 12px; }
       
       .better-wrap { padding: 25px 12px; display: flex; flex-direction: column-reverse; text-align: center; align-items: center; }
-      .better-images { height: 250px; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; width: 100%; }
-      .img-card { width: 90%; max-width: 200px; height: 180px; left: 50% !important; transform: translateX(-50%) !important; }
-      .img-card-0 { transform: translateX(-50%) !important; opacity: 1 !important; z-index: 1; left: 50% !important; top: 0; }
+      .better-images { height: 220px; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; width: 100%; overflow: hidden; }
+      .img-card { width: min(90vw, 205px); height: min(62vw, 175px); left: 50% !important; right: auto !important; top: 8px !important; bottom: auto !important; transform: translateX(-50%) !important; }
+      .img-card-0 { transform: translateX(-50%) !important; opacity: 1 !important; z-index: 2; left: 50% !important; }
       .img-card-1 { display: none; }
       .img-card-2 { display: none; }
       
       .section-title { font-size: 26px; text-align: center; }
+      .section-tag { font-size: 11px; }
       .stats-value { font-size: 32px; }
+      
+      .benefit-list { gap: 16px; margin-top: 24px; }
+      .benefit-item { gap: 10px; padding: 0; }
+      .benefit-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 12px; }
+      .benefit-title { font-size: 13px; margin-bottom: 2px; }
+      .benefit-desc { font-size: 12px; }
+      .why-locaura-desc { font-size: 13px; margin-top: 12px; line-height: 1.6; }
       
       .eco-icon { width: 48px; height: 48px; margin: 0 auto; }
       .eco-name { font-size: 16px; }
@@ -2759,14 +2771,14 @@ export default function App() {
                 <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="watch" />
               </div>
               <div className="floating-badge" style={{ bottom: 130, left: 16 }}>
-                <div className="fb-icon"></div>
+                <div className="fb-icon">🚚</div>
                 <div><div className="fb-title">Delivered in 2 hrs</div><div className="fb-sub">Order placed · Enroute</div></div>
               </div>
             </div>
             <div>
               <div className="section-tag" style={{ fontSize: 30 }}>Why Locaura</div>
               <h2 className="section-title">Better products for<br /><span style={{ color: "teal" }}>more people</span></h2>
-              <p style={{ fontSize: 19, color: "#888", lineHeight: 1.75, marginTop: 16 }}>
+              <p className="why-locaura-desc" style={{ fontSize: 19, color: "#888", lineHeight: 1.75, marginTop: 16 }}>
                 For years, same-day delivery was only for groceries. We've changed that — bringing fashion, footwear, and electronics from local stores right to your door, in hours.
               </p>
               <div className="benefit-list">
