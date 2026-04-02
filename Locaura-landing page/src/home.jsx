@@ -2403,13 +2403,14 @@ export default function App() {
                     })
                     .then(res => res.json())
                     .then(result => {
-                      if (result.promoCode || result._id) {
-                        setSegmentFormData({ ...segmentFormData, sell: { ...data, submitted: true, promoCode: result.promoCode || "SELLER-" + Math.random().toString(36).substring(7).toUpperCase(), error: "" } });
+                      if (result.promoCode) {
+                        setSegmentFormData({ ...segmentFormData, sell: { ...data, submitted: true, promoCode: result.promoCode, error: "" } });
                       } else {
                         setSegmentFormData({ ...segmentFormData, sell: { ...data, error: result.error || "Error saving. Try again." } });
                       }
                     })
                     .catch(err => {
+                      console.error(err);
                       setSegmentFormData({ ...segmentFormData, sell: { ...data, error: "⚠️ Server error. Make sure backend is running." } });
                     });
                   }} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -2576,13 +2577,14 @@ export default function App() {
                     })
                     .then(res => res.json())
                     .then(result => {
-                      if (result.promoCode || result._id) {
-                        setSegmentFormData({ ...segmentFormData, deliver: { ...data, submitted: true, promoCode: result.promoCode || "DELIVER-" + Math.random().toString(36).substring(7).toUpperCase(), error: "" } });
+                      if (result.promoCode) {
+                        setSegmentFormData({ ...segmentFormData, deliver: { ...data, submitted: true, promoCode: result.promoCode, error: "" } });
                       } else {
                         setSegmentFormData({ ...segmentFormData, deliver: { ...data, error: result.error || "Error saving. Try again." } });
                       }
                     })
                     .catch(err => {
+                      console.error(err);
                       setSegmentFormData({ ...segmentFormData, deliver: { ...data, error: "⚠️ Server error. Make sure backend is running." } });
                     });
                   }} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
