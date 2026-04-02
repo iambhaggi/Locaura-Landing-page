@@ -1243,7 +1243,16 @@ export default function App() {
     .img-card-1.visible { transition-delay: 0.18s; }
     .img-card-2.visible { transition-delay: 0.34s; }
     .floating-badge { position: absolute; background: #fff; border-radius: 16px; padding: 13px 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.14); display: flex; align-items: center; gap: 13px; z-index: 5; }
+    @media (max-width: 900px) {
+      .floating-badge { padding: 10px 16px; font-size: 13px; }
+    }
+    @media (max-width: 600px) {
+      .floating-badge { padding: 8px 12px; font-size: 11px; display: none; }
+    }
     .fb-icon { width: 42px; height: 42px; border-radius: 12px; background: #fff5f3; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    @media (max-width: 900px) {
+      .fb-icon { width: 36px; height: 36px; font-size: 18px; }
+    }
     .fb-title { font-size: 14px; font-weight: 800; color: #111; }
     .fb-sub { font-size: 15px; color: #111; }
     .benefit-list { display: flex; flex-direction: column; gap: 22px; margin-top: 36px; }
@@ -1432,17 +1441,28 @@ export default function App() {
       .nav-link { font-size: 13px; }
       .nav-cta { padding: 9px 18px; font-size: 13px; }
       
+      .hero-badge-group { gap: 10px; margin-bottom: 18px; }
+      .hero-badge { padding: 8px 14px; font-size: 11px; }
       .hero-headline { font-size: 38px; lineHeight: 1.1; }
       .hero-sub { font-size: 16px; }
       .store-btns { flex-direction: column; align-items: center; gap: 12px; }
       .store-btn-primary { min-width: 100%; }
       .store-btn-secondary { width: 100%; }
 
-      .better-wrap { padding: 60px 24px; grid-template-columns: 1fr; gap: 40px; }
-      .better-images { max-height: 300px; }
+      .better-wrap { padding: 40px 16px; grid-template-columns: 1fr; gap: 30px; display: flex; flex-direction: column-reverse; }
+      .better-images { height: 280px; position: relative; flex-shrink: 0; }
+      .img-card { position: absolute; width: 85%; max-width: 240px; height: 220px; }
+      .img-card-0 { transform: none !important; opacity: 1 !important; z-index: 1; left: 0%; top: 0; }
+      .img-card-1 { display: none; }
+      .img-card-2 { display: none; }
       
       .features-section { padding: 60px 24px; }
-      .features-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; padding: 0 24px; gap: 24px; }
+      .phone-wrap { display: none; }
+      
+      .stats-inner { padding: 40px 24px; grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid #efefef; padding: 24px 0; }
+      .stat:last-child { border-bottom: none; }
       
       .eco-section { padding: 60px 24px; }
       .eco-grid { grid-template-columns: 1fr; }
@@ -1455,16 +1475,62 @@ export default function App() {
       
       .footer { padding: 48px 24px 24px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      
+      .policy-layout { grid-template-columns: 1fr; }
+      .policy-sidebar { position: relative; top: auto; padding: 24px 0; border-right: none; border-bottom: 1px solid #f0f0f0; min-height: auto; }
+      .policy-content { padding: 40px 24px; max-width: 100%; }
     }
 
     @media (max-width: 600px) {
       html { font-size: 14px; }
+      
       .hero-headline { font-size: 28px; }
       .hero-sub { font-size: 14px; }
       .hero-brand { font-size: 48px; }
+      .hero-badge-group { gap: 8px; margin-bottom: 14px; }
+      .hero-badge { padding: 6px 12px; font-size: 10px; }
       
       .section-title { font-size: 32px; }
       .section-tag { font-size: 12px; }
+      
+      .better-wrap { padding: 40px 16px; gap: 24px; display: flex; flex-direction: column-reverse; }
+      .better-images { height: 280px; max-height: 280px; position: relative; flex-shrink: 0; }
+      .img-card { width: 85%; max-width: 240px; height: 220px; }
+      .img-card-0 { transform: none !important; opacity: 1 !important; z-index: 1; left: 0%; top: 0; }
+      .img-card-1 { display: none; }
+      .img-card-2 { display: none; }
+      .benefit-item { gap: 12px; }
+      .benefit-icon { width: 40px; height: 40px; font-size: 20px; }
+      .benefit-title { font-size: 14px; }
+      .benefit-desc { font-size: 13px; }
+      
+      .stats-inner { padding: 30px 16px; grid-template-columns: 1fr; }
+      .stat { padding: 20px 0; }
+      .stat-icon { font-size: 28px; }
+      .stat-value { font-size: 40px; }
+      .stat-label { font-size: 13px; }
+      
+      .features-grid { padding: 0 16px; gap: 16px; }
+      .feat-item { padding: 16px; }
+      .feat-icon { width: 40px; height: 40px; font-size: 20px; }
+      .feat-title { font-size: 14px; }
+      .feat-desc { font-size: 12px; }
+      
+      .eco-section { padding: 40px 16px; }
+      .eco-card { padding: 24px; }
+      .eco-icon { width: 56px; height: 56px; font-size: 28px; }
+      .eco-name { font-size: 18px; }
+      .eco-desc { font-size: 13px; }
+      
+      .cat-section { padding: 40px 16px; }
+      .cat-chips { gap: 10px; }
+      .cat-chip { padding: 10px 20px; font-size: 14px; }
+      .cat-chip-icon { font-size: 20px; }
+      
+      .download-title { font-size: 32px; }
+      .download-sub { font-size: 14px; }
+      .qr-card { padding: 24px; }
+      .qr-block { width: 150px; height: 150px; }
       
       .nav-links { display: none; }
       .nav { justify-content: space-between; }
@@ -1474,10 +1540,36 @@ export default function App() {
       
       .benefit-list { display: flex; flexDirection: column; }
       
+      .policy-sidebar-btn { padding: 9px 12px; font-size: 13px; }
+      .policy-content { padding: 30px 16px; }
+      .policy-sidebar-contact { padding: 14px; }
+      
       @keyframes heroFadeUp {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
+    }
+
+    @media (max-width: 375px) {
+      .hero-badge { padding: 5px 10px; font-size: 9px; }
+      .hero-headline { font-size: 22px; }
+      .hero-sub { font-size: 12px; }
+      
+      .better-wrap { padding: 30px 12px; display: flex; flex-direction: column-reverse; }
+      .better-images { height: 250px; flex-shrink: 0; }
+      .img-card { width: 85%; max-width: 200px; height: 180px; }
+      .img-card-0 { transform: none !important; opacity: 1 !important; z-index: 1; left: 0%; top: 0; }
+      .img-card-1 { display: none; }
+      .img-card-2 { display: none; }
+      
+      .stats-value { font-size: 32px; }
+      .better-wrap { padding: 30px 12px; }
+      .section-title { font-size: 26px; }
+      
+      .eco-icon { width: 48px; height: 48px; }
+      .eco-name { font-size: 16px; }
+      .qr-block { width: 130px; height: 130px; }
+      .download-title { font-size: 28px; }
     }
 
     /* ── WAITLIST SECTION BOX ── */
