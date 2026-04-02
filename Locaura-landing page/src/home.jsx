@@ -1067,7 +1067,7 @@ export default function App() {
   ];
 
   const apps = [
-    { name: "Locaura", tag: "Core App", icon: "image", image: "/src/assets/Locaura.jpeg", bg: "linear-gradient(135deg,#000000,#000000)", desc: "Order clothes, shoes & gadgets and get them delivered the same day — right to your door." },
+    { name: "Locaura", tag: "Core App", icon: "image", image: "/src/assets/Locaura.png", bg: "linear-gradient(135deg,#000000,#000000)", desc: "Order clothes, shoes & gadgets and get them delivered the same day — right to your door." },
     { name: "Locaura express", tag: "Speed Mode", icon: "🚀", bg: "linear-gradient(135deg,#F5A623,#f0c040)", desc: "Need it in 2 hours? Swift Express prioritises your order for ultra-fast city delivery." },
     { name: "Locaura biz", tag: "B2B", icon: "🏢", bg: "linear-gradient(135deg,#5B4FE8,#8b7cf6)", desc: "Bulk orders for offices & businesses. Uniforms, electronics — sourced and delivered fast." },
     { name: "Locaura picks", tag: "Discovery", icon: "🛍️", bg: "linear-gradient(135deg,#1DB954,#14a845)", desc: "AI-curated product picks based on city trends, season, and your personal style." },
