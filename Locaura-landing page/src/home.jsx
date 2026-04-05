@@ -736,6 +736,7 @@ function PolicyPage({ title, subtitle, icon, children, onNavigate, allPolicies, 
         <div className="policy-last-updated">Last updated: January 2026</div>
         {/* Go to Home button */}
         <button
+          className="policy-home-btn"
           onClick={() => { onNavigate("home"); window.scrollTo(0, 0); }}
           style={{
             marginTop: 20,
@@ -1499,6 +1500,13 @@ export default function App() {
       .policy-layout { grid-template-columns: 1fr; }
       .policy-sidebar { position: relative; top: auto; padding: 24px 0; border-right: none; border-bottom: 1px solid #f0f0f0; min-height: auto; text-align: center; }
       .policy-content { padding: 40px 16px; max-width: 100%; text-align: left; }
+      .policy-page { padding-top: 70px; }
+      .policy-hero { padding: 56px 24px 48px; }
+      .policy-hero-icon { font-size: 44px; margin-bottom: 12px; }
+      .policy-hero-title { font-size: 40px; letter-spacing: -1.4px; }
+      .policy-hero-sub { font-size: 15px; max-width: 100%; }
+      .policy-last-updated { padding: 6px 14px; font-size: 11px; }
+      .policy-home-btn { width: 100%; max-width: 240px; }
     }
 
     @media (max-width: 600px) {
@@ -1572,6 +1580,21 @@ export default function App() {
       .policy-sidebar-btn { padding: 9px 12px; font-size: 13px; text-align: left; }
       .policy-content { padding: 30px 16px; text-align: left; }
       .policy-sidebar-contact { padding: 14px; text-align: center; }
+      .policy-page { padding-top: 64px; }
+      .policy-hero { padding: 48px 16px 40px; }
+      .policy-hero-icon { font-size: 38px; margin-bottom: 10px; }
+      .policy-hero-tag { font-size: 10px; letter-spacing: 2px; }
+      .policy-hero-title { font-size: 32px; letter-spacing: -1px; }
+      .policy-hero-sub { font-size: 13px; line-height: 1.65; margin-bottom: 16px; }
+      .policy-home-btn { width: 100%; max-width: 220px; padding: 10px 18px !important; font-size: 12px !important; }
+      .policy-sidebar { padding: 18px 0; }
+      .policy-sidebar-title { margin-bottom: 12px; }
+      .policy-sidebar-btn { padding: 10px 12px; font-size: 12px; }
+      .policy-sidebar-icon { font-size: 16px; }
+      .policy-sidebar-contact { margin-top: 20px; }
+      .prose-policy h2 { font-size: 17px; margin-top: 28px; margin-bottom: 10px; padding-bottom: 10px; }
+      .prose-policy p { font-size: 13px; line-height: 1.75; }
+      .policy-breadcrumb { padding: 12px 16px; font-size: 12px; gap: 6px; flex-wrap: wrap; }
       
       @keyframes heroFadeUp {
         from { opacity: 0; transform: translateY(20px); }
@@ -1611,6 +1634,22 @@ export default function App() {
       .footer { padding: 30px 12px 15px; text-align: center; }
       .footer-grid { gap: 20px; }
       .footer-bottom { gap: 15px; }
+
+      .policy-page { padding-top: 60px; }
+      .policy-hero { padding: 42px 14px 34px; }
+      .policy-hero-icon { font-size: 34px; margin-bottom: 8px; }
+      .policy-hero-title { font-size: 28px; letter-spacing: -0.8px; }
+      .policy-hero-sub { font-size: 12px; line-height: 1.6; }
+      .policy-home-btn { max-width: 100%; }
+      .policy-layout { display: block; }
+      .policy-sidebar { padding: 14px 0 10px; border-bottom: 1px solid #f0f0f0; }
+      .policy-sidebar-title { font-size: 9px; letter-spacing: 1.8px; margin-bottom: 10px; }
+      .policy-sidebar-btn { padding: 9px 10px; font-size: 12px; border-radius: 10px; }
+      .policy-sidebar-contact { margin-top: 16px; padding: 12px; }
+      .policy-content { padding: 24px 14px 32px; }
+      .prose-policy h2 { font-size: 16px; margin-top: 24px; margin-bottom: 10px; padding-bottom: 8px; }
+      .prose-policy p { font-size: 12px; line-height: 1.7; }
+      .policy-breadcrumb { padding: 10px 14px; font-size: 11px; }
     }
 
     /* ── WAITLIST SECTION BOX ── */
