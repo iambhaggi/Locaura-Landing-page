@@ -33,6 +33,33 @@ function WaitlistForm({ dark = false }) {
   const [promoCode, setPromoCode] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [scratchRevealed, setScratchRevealed] = useState(false);
+  const [scratchReward, setScratchReward] = useState(null);
+
+  const rewardPool = [
+    { title: "Free Delivery", subtitle: "You unlocked launch-day free delivery", codeSuffix: "FREE" },
+    { title: "Rs 50 OFF", subtitle: "Bonus discount on your first order", codeSuffix: "SAVE50" },
+    { title: "Priority Slot", subtitle: "Early delivery slot access unlocked", codeSuffix: "PRIOR" },
+    { title: "Double Rewards", subtitle: "You unlocked extra loyalty points", codeSuffix: "BOOST" },
+  ];
+
+  const getCompactClaimCode = (baseCode, rewardTag = "BASE") => {
+    const cleaned = `${baseCode}${rewardTag}`.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let hash = 0;
+
+    for (let i = 0; i < cleaned.length; i += 1) {
+      hash = (hash * 31 + cleaned.charCodeAt(i)) >>> 0;
+    }
+
+    let shortCode = "";
+    for (let i = 0; i < 8; i += 1) {
+      hash = (hash * 1664525 + 1013904223) >>> 0;
+      shortCode += alphabet[hash % alphabet.length];
+    }
+
+    return shortCode;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +87,9 @@ function WaitlistForm({ dark = false }) {
       if (res.ok) {
         console.log("Waitlist saved:", data);
         setPromoCode(data.promoCode);
+        const seededReward = rewardPool[data.promoCode.charCodeAt(data.promoCode.length - 1) % rewardPool.length];
+        setScratchReward(seededReward);
+        setScratchRevealed(false);
         setSubmitted(true);
         setCopied(false);
         setError("");
@@ -76,6 +106,75 @@ function WaitlistForm({ dark = false }) {
   };
 
   if (submitted) {
+    const claimCode = getCompactClaimCode(promoCode, scratchReward?.codeSuffix || "BASE");
+
+    if (!scratchRevealed) {
+      return (
+        <div style={{
+          background: dark ? "rgba(14,165,233,0.1)" : "rgba(14,165,233,0.06)",
+          border: `1.5px solid ${dark ? "rgba(14,165,233,0.4)" : "rgba(14,165,233,0.3)"}`,
+          borderRadius: 20,
+          padding: "clamp(18px, 4vw, 32px) clamp(14px, 4vw, 28px)",
+          textAlign: "center",
+          maxWidth: 520,
+          margin: "0 auto",
+        }}>
+          <div style={{ fontSize: "clamp(30px, 9vw, 44px)", marginBottom: 10 }}>🎁</div>
+          <div style={{ fontSize: "clamp(17px, 5vw, 20px)", fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 8 }}>
+            You unlocked a reward!
+          </div>
+          <div style={{ fontSize: "clamp(12px, 3.2vw, 14px)", color: dark ? "rgba(255,255,255,0.65)" : "#666", marginBottom: 18 }}>
+            Scratch your card to reveal your launch bonus.
+          </div>
+
+          <div style={{
+            position: "relative",
+            borderRadius: 16,
+            overflow: "hidden",
+            border: "2px dashed rgba(239,68,68,0.45)",
+            marginBottom: 14,
+            background: dark ? "linear-gradient(135deg, rgba(0,0,0,0.22), rgba(14,165,233,0.16))" : "linear-gradient(135deg, #fff8f2, #fff)",
+            minHeight: 150,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px 14px"
+          }}>
+            <div style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(120deg, #9ca3af 0%, #d1d5db 40%, #9ca3af 100%)",
+              opacity: 0.9,
+              pointerEvents: "none"
+            }} />
+            <div style={{ position: "relative", zIndex: 2, color: dark ? "#fff" : "#111", fontSize: 14, fontWeight: 900, letterSpacing: "0.6px", textTransform: "uppercase" }}>
+              Scratch To Reveal
+            </div>
+          </div>
+
+          <button
+            onClick={() => setScratchRevealed(true)}
+            style={{
+              width: "100%",
+              background: "#EF4444",
+              color: "#fff",
+              border: "none",
+              borderRadius: 10,
+              padding: "12px 16px",
+              fontWeight: 900,
+              fontSize: 13,
+              cursor: "pointer",
+              transition: "all 0.2s"
+            }}
+            onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}
+          >
+            Reveal My Reward
+          </button>
+        </div>
+      );
+    }
+
     return (
       <div style={{
         background: dark ? "rgba(14,165,233,0.1)" : "rgba(14,165,233,0.06)",
@@ -88,6 +187,21 @@ function WaitlistForm({ dark = false }) {
       }}>
         <div style={{ fontSize: "clamp(34px, 10vw, 48px)", marginBottom: 12, animation: "bounce 0.6s" }}>🎉</div>
         <div style={{ fontSize: "clamp(17px, 5vw, 20px)", fontWeight: 900, color: dark ? "#fff" : "#111", marginBottom: 4 }}>Successfully Registered!</div>
+        {scratchReward && (
+          <div style={{
+            margin: "0 auto 12px",
+            background: dark ? "rgba(22,163,74,0.14)" : "rgba(22,163,74,0.12)",
+            border: "1px solid rgba(22,163,74,0.4)",
+            borderRadius: 999,
+            padding: "6px 12px",
+            fontSize: 12,
+            fontWeight: 800,
+            color: dark ? "#bbf7d0" : "#166534",
+            display: "inline-block"
+          }}>
+            Won: {scratchReward.title}
+          </div>
+        )}
         <div style={{ fontSize: "clamp(12px, 3.3vw, 14px)", color: dark ? "rgba(255,255,255,0.6)" : "#666", marginBottom: 18 }}>Your exclusive promo code for free delivery:</div>
         
         <div style={{
@@ -112,11 +226,11 @@ function WaitlistForm({ dark = false }) {
             textAlign: "center",
             overflowWrap: "anywhere"
           }}>
-            {promoCode}
+            {claimCode}
           </div>
           <button
             onClick={() => {
-              navigator.clipboard.writeText(promoCode).then(() => {
+              navigator.clipboard.writeText(claimCode).then(() => {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 1600);
               });
@@ -155,7 +269,11 @@ function WaitlistForm({ dark = false }) {
         </div>
 
         <button
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setScratchRevealed(false);
+            setScratchReward(null);
+          }}
           style={{
             background: dark ? "rgba(255,255,255,0.08)" : "rgba(14,165,233,0.1)",
             border: `1px solid ${dark ? "rgba(255,255,255,0.15)" : "rgba(14,165,233,0.25)"}`,
@@ -1208,6 +1326,69 @@ export default function App() {
       text-transform: uppercase; color: #EF4444;
     }
 
+    /* ── 10-SECOND EXPLAINER ── */
+    .explainer-section {
+      padding: 84px 32px 72px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    }
+    .explainer-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 34px;
+      align-items: center;
+    }
+    .explainer-video-card {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #e9e9e9;
+      box-shadow: 0 18px 54px rgba(0,0,0,0.1);
+      background: #0b0b0b;
+      position: relative;
+    }
+    .explainer-video { width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block; }
+    .explainer-video-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .explainer-steps { display: grid; gap: 12px; margin-top: 20px; }
+    .explainer-step {
+      background: #fff;
+      border: 1px solid #ededed;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .explainer-step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+    .explainer-step-title { font-size: 16px; font-weight: 900; color: #111; }
+    .explainer-step-sub { font-size: 12px; color: #777; margin-top: 2px; }
+
     /* ── EARLY ACCESS HERO BAND ── */
     .early-access-band {
       background: #060606;
@@ -1466,6 +1647,10 @@ export default function App() {
       .store-btn-primary { min-width: 100%; }
       .store-btn-secondary { width: 100%; }
 
+      .explainer-section { padding: 56px 16px 52px; }
+      .explainer-wrap { grid-template-columns: 1fr; gap: 20px; }
+      .explainer-video { min-height: 250px; }
+
       .better-wrap { padding: 40px 16px; grid-template-columns: 1fr; gap: 30px; display: flex; flex-direction: column-reverse; text-align: center; }
       .better-images { height: 270px; position: relative; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; width: 100%; overflow: hidden; }
       .img-card { position: absolute; width: min(86vw, 250px); height: min(70vw, 220px); left: 50% !important; right: auto !important; top: 10px !important; bottom: auto !important; transform: translateX(-50%) !important; }
@@ -1518,6 +1703,11 @@ export default function App() {
       .hero-brand { font-size: 48px; }
       .hero-badge-group { gap: 8px; margin-bottom: 14px; justify-content: center; }
       .hero-badge { padding: 6px 12px; font-size: 10px; }
+
+      .explainer-video { min-height: 200px; }
+      .explainer-step { padding: 12px; }
+      .explainer-step-title { font-size: 14px; }
+      .explainer-step-sub { font-size: 11px; }
       
       .section-title { font-size: 32px; text-align: center; }
       .section-tag { font-size: 12px; text-align: center; }
@@ -2309,6 +2499,47 @@ export default function App() {
               </div>
             </div>
             <div className="scroll-cue"><span>Scroll down</span><span className="scroll-chevron">⌄</span></div>
+          </section>
+
+          <section className="explainer-section">
+            <div className="explainer-wrap">
+              <div>
+                <div className="section-tag">How It Works In 10 Seconds</div>
+                <h2 className="section-title">From local shelf to your door</h2>
+                <p style={{ fontSize: 16, color: "#666", lineHeight: 1.7, marginTop: 12 }}>
+                  Quick visual flow to show what happens after you place an order.
+                </p>
+                <div className="explainer-steps">
+                  <div className="explainer-step">
+                    <div className="explainer-step-num">1</div>
+                    <div>
+                      <div className="explainer-step-title">Pick product</div>
+                      <div className="explainer-step-sub">Browse live items from nearby stores</div>
+                    </div>
+                  </div>
+                  <div className="explainer-step">
+                    <div className="explainer-step-num">2</div>
+                    <div>
+                      <div className="explainer-step-title">Nearby store packs</div>
+                      <div className="explainer-step-sub">Order confirmed, packed, and ready instantly</div>
+                    </div>
+                  </div>
+                  <div className="explainer-step">
+                    <div className="explainer-step-num">3</div>
+                    <div>
+                      <div className="explainer-step-title">Delivered same day</div>
+                      <div className="explainer-step-sub">Track in real time and receive in hours</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="explainer-video-card">
+                <div className="explainer-video-badge">AI-style delivery flow</div>
+                <video className="explainer-video" autoPlay loop muted playsInline preload="metadata">
+                  <source src={videoBg} type="video/mp4" />
+                </video>
+              </div>
+            </div>
           </section>
 
           {/* ── SEGMENT FORMS SECTION ── */}
