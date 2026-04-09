@@ -778,7 +778,7 @@ function SharedFooter({ onNavigate }) {
               { label: "Seller Terms", page: "seller" },
               { label: "Delivery Partner Terms", page: "delivery-partner" },
               { label: "Contact & Support", page: "contact" },
-              { label: "Dispute Resolution", link: "mailto:disputes@locaura.in" },
+              { label: "Dispute Resolution", page: "dispute" },
             ]
           },
         ].map(col => (
@@ -851,34 +851,15 @@ function PolicyPage({ title, subtitle, icon, children, onNavigate, allPolicies, 
         <div className="policy-hero-tag">Legal & Policies</div>
         <h1 className="policy-hero-title">{title}</h1>
         <p className="policy-hero-sub">{subtitle}</p>
-        <div className="policy-last-updated">Last updated: January 2026</div>
-        {/* Go to Home button */}
-        <button
-          className="policy-home-btn"
-          onClick={() => { onNavigate("home"); window.scrollTo(0, 0); }}
-          style={{
-            marginTop: 20,
-            background: "rgba(255,255,255,0.08)",
-            border: "1.5px solid rgba(255,255,255,0.18)",
-            color: "rgba(255,255,255,0.7)",
-            borderRadius: 10,
-            padding: "10px 22px",
-            fontSize: 13,
-            fontWeight: 800,
-            cursor: "pointer",
-            fontFamily: "'Nunito', sans-serif",
-            transition: "all 0.2s",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            position: "relative",
-            zIndex: 1,
-          }}
-          onMouseEnter={e => { e.currentTarget.style.background = "rgba(0,0,0,0.25)"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#fff"; }}
-          onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}
-        >
-          🏠 Go to Home
-        </button>
+        <div className="policy-hero-actions">
+          <div className="policy-last-updated">Last updated: January 2026</div>
+          <button
+            className="policy-home-btn"
+            onClick={() => { onNavigate("home"); window.scrollTo(0, 0); }}
+          >
+            🏠 Go to Home
+          </button>
+        </div>
       </div>
 
       <div className="policy-layout">
@@ -1080,12 +1061,53 @@ function ContactPage({ onNavigate, allPolicies }) {
   );
 }
 
+function DisputeResolutionPage({ onNavigate, allPolicies }) {
+  return (
+    <PolicyPage title="Dispute Resolution" subtitle="How Locaura handles and resolves customer and partner disputes fairly." icon="⚖️" onNavigate={onNavigate} allPolicies={allPolicies} currentPage="dispute">
+      <div className="prose-policy">
+        <h2>Raise a Dispute</h2>
+        <p>If you face an issue related to an order, refund, return, payment, or delivery experience, you can raise a dispute through Locaura support at <a href="mailto:disputes@locaura.in" style={{ color: "#000000", fontWeight: 700 }}>disputes@locaura.in</a>. Please include your registered phone number/email, order ID, issue description, and supporting screenshots so our team can review your case faster.</p>
+        <h2>Acknowledgement Timeline</h2>
+        <p>All disputes are acknowledged within 48 hours of submission. Once acknowledged, your ticket is assigned a reference number and tracked by our grievance support team. For urgent payment or delivery failures, we aim to prioritize first response within 24 hours.</p>
+        <h2>Resolution Process</h2>
+        <p>Locaura reviews order logs, seller records, delivery timeline, and payment status before deciding outcomes. Depending on the case, the resolution may include replacement, refund, wallet credit, return pickup, or escalation to the concerned seller/logistics partner. We maintain a transparent audit trail for all dispute decisions.</p>
+        <h2>Resolution SLA</h2>
+        <p>Standard disputes are resolved within 7 business days. Complex disputes requiring third-party verification may take up to 30 days, in line with applicable e-commerce norms. You will receive progress updates through email or phone during this period.</p>
+        <h2>Escalation</h2>
+        <p>If you are not satisfied with the initial resolution, you may request escalation by replying to the same dispute thread within 7 days. Escalated cases are reviewed by a senior compliance representative. You may also contact consumer grievance channels as per applicable law.</p>
+      </div>
+    </PolicyPage>
+  );
+}
+
 // ─────────────────────────────────────────────
 // MAIN APP
 // ─────────────────────────────────────────────
 export default function App() {
+  const pageToPath = {
+    home: "/",
+    cities: "/cities",
+    privacy: "/privacy-policy",
+    terms: "/terms-of-services",
+    refund: "/refund-cancellation",
+    delivery: "/delivery-policy",
+    seller: "/seller-terms",
+    "delivery-partner": "/delivery-partner-terms",
+    contact: "/contact-support",
+    dispute: "/dispute-resolution",
+  };
+
+  const getPageFromPath = (pathName) => {
+    const normalizedPath = (pathName || "/").replace(/\/+$/, "") || "/";
+    const entry = Object.entries(pageToPath).find(([, path]) => path === normalizedPath);
+    return entry ? entry[0] : "home";
+  };
+
   const [scrollY, setScrollY] = useState(0);
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState(() => {
+    if (typeof window === "undefined") return "home";
+    return getPageFromPath(window.location.pathname);
+  });
   const [betterRef, betterVisible] = useScrollReveal(0.15);
   const [showStickyEmail, setShowStickyEmail] = useState(false);
   const [countdown, setCountdown] = useState({ days: 9, hours: 0, minutes: 0, seconds: 0 });
@@ -1114,6 +1136,23 @@ export default function App() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const pageFromPath = getPageFromPath(window.location.pathname);
+    const canonicalPath = pageToPath[pageFromPath] || "/";
+
+    setCurrentPage(pageFromPath);
+    if (window.location.pathname !== canonicalPath) {
+      window.history.replaceState({}, "", canonicalPath);
+    }
+
+    const handlePopState = () => {
+      setCurrentPage(getPageFromPath(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   // Countdown Timer for city launch - April 10, 2026
@@ -1161,6 +1200,10 @@ export default function App() {
   }, [showExitIntent, currentPage]);
 
   const navigate = (page) => {
+    const nextPath = pageToPath[page] || "/";
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState({}, "", nextPath);
+    }
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -1173,6 +1216,7 @@ export default function App() {
     { page: "seller", label: "Seller Terms", icon: "🏪" },
     { page: "delivery-partner", label: "Delivery Partner Terms", icon: "🛵" },
     { page: "contact", label: "Contact & Support", icon: "📞" },
+    { page: "dispute", label: "Dispute Resolution", icon: "⚖️" },
   ];
 
   const categories = [
@@ -1855,20 +1899,36 @@ export default function App() {
     /* ────────────────────────────────────────
        POLICY PAGES
     ──────────────────────────────────────── */
-    .policy-page { padding-top: 80px; min-height: 100vh; background: #fff; }
+    .policy-page {
+      padding-top: 80px;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 24%);
+    }
 
     .policy-hero {
-      background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #111 100%);
-      padding: 80px 80px 70px;
+      background: linear-gradient(135deg, #0b0b0b 0%, #151515 45%, #111 100%);
+      padding: 82px 80px 72px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .policy-hero::before {
       content: '';
       position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
       width: 800px; height: 800px; border-radius: 50%;
       background: radial-gradient(circle, rgba(0,0,0,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .policy-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      right: -120px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(239,68,68,0.18) 0%, rgba(239,68,68,0) 72%);
       pointer-events: none;
     }
     .policy-hero-icon { font-size: 52px; margin-bottom: 16px; position: relative; z-index: 1; }
@@ -1894,15 +1954,59 @@ export default function App() {
       color: rgba(255,255,255,0.35); letter-spacing: 0.5px;
       position: relative; z-index: 1;
     }
+    .policy-hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .policy-home-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.75);
+      border-radius: 12px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+    }
+    .policy-home-btn:hover {
+      background: rgba(0,0,0,0.25);
+      border-color: rgba(255,255,255,0.4);
+      color: #fff;
+      transform: translateY(-1px);
+    }
 
     .policy-layout {
-      display: grid; grid-template-columns: 280px 1fr;
-      gap: 0; max-width: 100%; align-items: start;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 28px;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px 28px 62px;
+      align-items: start;
     }
 
     .policy-sidebar {
-      position: sticky; top: 80px; padding: 48px 32px;
-      border-right: 1px solid #f0f0f0; min-height: calc(100vh - 80px);
+      position: sticky;
+      top: 92px;
+      padding: 24px;
+      border: 1px solid #ececec;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.05);
+      min-height: auto;
     }
     .policy-sidebar-title {
       font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
@@ -1911,19 +2015,33 @@ export default function App() {
     .policy-sidebar-btn {
       display: flex; align-items: center; gap: 11px;
       width: 100%; text-align: left; background: none; border: none;
-      padding: 11px 14px; border-radius: 12px; cursor: pointer;
+      padding: 12px 14px; border-radius: 12px; cursor: pointer;
       font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700;
-      color: #666; transition: all 0.15s; margin-bottom: 4px;
+      color: #666; transition: all 0.15s; margin-bottom: 6px;
     }
-    .policy-sidebar-btn:hover { background: #f7f7f7; color: #111; }
-    .policy-sidebar-btn.active { background: #fff2ec; color: #EF4444; }
+    .policy-sidebar-btn:hover { background: #f7f7f7; color: #111; transform: translateX(2px); }
+    .policy-sidebar-btn.active {
+      background: linear-gradient(135deg, #fff2ec 0%, #fff7f3 100%);
+      color: #EF4444;
+      box-shadow: inset 0 0 0 1px rgba(239,68,68,0.18);
+    }
     .policy-sidebar-icon { font-size: 18px; }
     .policy-sidebar-contact {
-      margin-top: 32px; padding: 18px; background: #f9f9f9;
-      border-radius: 14px; border: 1px solid #efefef;
+      margin-top: 24px;
+      padding: 16px;
+      background: linear-gradient(180deg, #fafafa 0%, #f6f6f6 100%);
+      border-radius: 14px;
+      border: 1px solid #ededed;
     }
 
-    .policy-content { padding: 56px 80px 80px; max-width: 800px; }
+    .policy-content {
+      background: #fff;
+      border: 1px solid #ececec;
+      border-radius: 22px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.06);
+      padding: 44px 44px 52px;
+      max-width: 100%;
+    }
 
     /* ── PROSE POLICY ── */
     .prose-policy {}
@@ -1941,14 +2059,17 @@ export default function App() {
     .prose-policy p {
       font-size: 15px;
       color: #555;
-      line-height: 1.85;
+      line-height: 1.82;
       font-weight: 500;
     }
+    .prose-policy p + p { margin-top: 12px; }
 
     /* Contact page */
     .contact-cards {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
     }
     .contact-card {
       background: #fafafa; border: 1px solid #f0f0f0;
@@ -1968,7 +2089,9 @@ export default function App() {
     /* Breadcrumb */
     .policy-breadcrumb {
       display: flex; align-items: center; gap: 8px;
-      padding: 16px 80px; background: #fafafa; border-bottom: 1px solid #f0f0f0;
+      padding: 14px 28px;
+      background: #ffffff;
+      border-bottom: 1px solid #efefef;
       font-size: 13px; color: #aaa; font-weight: 600;
     }
     .policy-breadcrumb-home {
@@ -1984,17 +2107,29 @@ export default function App() {
       .policy-hero-title { font-size: 40px; letter-spacing: -1.4px; }
       .policy-hero-sub { font-size: 15px; max-width: 100%; }
       .policy-last-updated { padding: 6px 14px; font-size: 11px; }
-      .policy-layout { grid-template-columns: 1fr; display: block; }
+      .policy-layout {
+        grid-template-columns: 1fr;
+        display: block;
+        max-width: 100%;
+        padding: 16px 16px 34px;
+      }
       .policy-sidebar {
         position: relative;
         top: auto;
         min-height: auto;
-        padding: 24px 12px 18px;
-        border-right: none;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 16px;
+        border: 1px solid #ededed;
+        border-radius: 16px;
+        margin-bottom: 14px;
       }
-      .policy-content { max-width: 100%; padding: 40px 20px 50px; }
-      .policy-home-btn { width: 100%; max-width: 240px; }
+      .policy-content {
+        max-width: 100%;
+        padding: 28px 24px 34px;
+        border-radius: 16px;
+      }
+      .policy-hero-actions { margin-top: 16px; gap: 10px; }
+      .policy-home-btn { width: auto; max-width: none; }
+      .contact-cards { grid-template-columns: 1fr; gap: 12px; }
     }
 
     @media (max-width: 600px) {
@@ -2004,16 +2139,20 @@ export default function App() {
       .policy-hero-tag { font-size: 10px; letter-spacing: 2px; }
       .policy-hero-title { font-size: 32px; letter-spacing: -1px; }
       .policy-hero-sub { font-size: 13px; line-height: 1.65; margin-bottom: 16px; }
-      .policy-home-btn { width: 100%; max-width: 220px; padding: 10px 18px !important; font-size: 12px !important; }
-      .policy-sidebar { padding: 18px 10px 12px; }
+      .policy-hero-actions { margin-top: 14px; gap: 8px; }
+      .policy-home-btn { width: auto; max-width: none; padding: 9px 16px; font-size: 12px; border-radius: 10px; }
+      .policy-sidebar { padding: 14px; }
       .policy-sidebar-title { margin-bottom: 12px; }
-      .policy-sidebar-btn { padding: 10px 12px; font-size: 12px; }
+      .policy-sidebar-btn { padding: 10px 12px; font-size: 12px; margin-bottom: 4px; }
       .policy-sidebar-icon { font-size: 16px; }
       .policy-sidebar-contact { margin-top: 20px; }
-      .policy-content { padding: 30px 16px 36px; }
+      .policy-content { padding: 22px 16px 30px; }
       .prose-policy h2 { font-size: 17px; margin-top: 28px; margin-bottom: 10px; padding-bottom: 10px; }
       .prose-policy p { font-size: 13px; line-height: 1.75; }
       .policy-breadcrumb { padding: 12px 16px; font-size: 12px; gap: 6px; flex-wrap: wrap; }
+      .contact-card { padding: 18px; border-radius: 14px; }
+      .contact-card-icon { width: 46px; height: 46px; font-size: 21px; }
+      .contact-card-detail { font-size: 14px; }
     }
 
     @media (max-width: 375px) {
@@ -2022,12 +2161,12 @@ export default function App() {
       .policy-hero-icon { font-size: 34px; margin-bottom: 8px; }
       .policy-hero-title { font-size: 28px; letter-spacing: -0.8px; }
       .policy-hero-sub { font-size: 12px; line-height: 1.6; }
-      .policy-home-btn { max-width: 100%; }
-      .policy-sidebar { padding: 14px 8px 10px; }
+      .policy-home-btn { max-width: none; padding: 8px 14px; font-size: 11px; }
+      .policy-sidebar { padding: 12px; }
       .policy-sidebar-title { font-size: 9px; letter-spacing: 1.8px; margin-bottom: 10px; }
       .policy-sidebar-btn { padding: 9px 10px; font-size: 12px; border-radius: 10px; }
       .policy-sidebar-contact { margin-top: 16px; padding: 12px; }
-      .policy-content { padding: 24px 14px 32px; }
+      .policy-content { padding: 20px 12px 28px; border-radius: 14px; }
       .prose-policy h2 { font-size: 16px; margin-top: 24px; margin-bottom: 10px; padding-bottom: 8px; }
       .prose-policy p { font-size: 12px; line-height: 1.7; }
       .policy-breadcrumb { padding: 10px 14px; font-size: 11px; }
@@ -3525,6 +3664,7 @@ export default function App() {
       {currentPage === "seller" && <SellerPage onNavigate={navigate} allPolicies={allPolicies} />}
       {currentPage === "delivery-partner" && <DeliveryPartnerPage onNavigate={navigate} allPolicies={allPolicies} />}
       {currentPage === "contact" && <ContactPage onNavigate={navigate} allPolicies={allPolicies} />}
+      {currentPage === "dispute" && <DisputeResolutionPage onNavigate={navigate} allPolicies={allPolicies} />}
 
       {currentPage !== "cities" && <SharedFooter onNavigate={navigate} />}
       {currentPage === "cities" && <SharedFooter onNavigate={navigate} />}
