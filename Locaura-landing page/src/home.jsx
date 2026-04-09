@@ -1117,7 +1117,7 @@ export default function App() {
   const [exitIntentSubmitted, setExitIntentSubmitted] = useState(false);
   const [exitIntentPromoCode, setExitIntentPromoCode] = useState("");
   const [exitIntentError, setExitIntentError] = useState("");
-  const [waitlistCount, setWaitlistCount] = useState(0);
+  const [waitlistCount, setWaitlistCount] = useState(100);
   const [selectedSegment, setSelectedSegment] = useState("shop");
   const [segmentFormData, setSegmentFormData] = useState({ 
     shop: { city: "", email: "", submitted: false, promoCode: "", error: "" },
@@ -1155,10 +1155,10 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Countdown Timer for city launch - April 10, 2026
+  // Countdown Timer for city launch - April 13, 2026
   useEffect(() => {
     const updateCountdown = () => {
-      const launchDate = new Date('2026-04-10T00:00:00').getTime();
+      const launchDate = new Date('2026-04-13T00:00:00').getTime();
       const now = new Date().getTime();
       const totalSeconds = Math.max(0, Math.floor((launchDate - now) / 1000));
       
@@ -1175,14 +1175,25 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Dynamic Waitlist Counter - Increments by 2 every hour (starting from 0)
+  // Dynamic Waitlist Counter - Starts at 100 and increments forward over time
   useEffect(() => {
+    const BASE_COUNT = 100;
+    const INCREMENT_PER_HOUR = 2;
+    const START_TIME_KEY = "locaura_waitlist_start_time";
+
     const updateCounter = () => {
-      const startTime = new Date('2026-04-01').getTime();
+      let startTime = Number(localStorage.getItem(START_TIME_KEY));
+
+      if (!startTime) {
+        startTime = Date.now();
+        localStorage.setItem(START_TIME_KEY, String(startTime));
+      }
+
       const now = new Date().getTime();
       const hoursElapsed = Math.floor((now - startTime) / (1000 * 60 * 60));
-      setWaitlistCount(Math.max(0, hoursElapsed * 2));
+      setWaitlistCount(BASE_COUNT + Math.max(0, hoursElapsed) * INCREMENT_PER_HOUR);
     };
+
     updateCounter();
     const timer = setInterval(updateCounter, 60000); // Check every minute
     return () => clearInterval(timer);
