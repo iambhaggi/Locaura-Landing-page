@@ -32,6 +32,7 @@ function WaitlistForm({ dark = false }) {
   const [submitted, setSubmitted] = useState(false);
   const [promoCode, setPromoCode] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [copied, setCopied] = useState(false);
   const [scratchRevealed, setScratchRevealed] = useState(false);
   const [scratchReward, setScratchReward] = useState(null);
@@ -42,6 +43,24 @@ function WaitlistForm({ dark = false }) {
     { title: "Priority Slot", subtitle: "Early delivery slot access unlocked", codeSuffix: "PRIOR" },
     { title: "Double Rewards", subtitle: "You unlocked extra loyalty points", codeSuffix: "BOOST" },
   ];
+
+  const createQuickPromoCode = (seed) => {
+    const base = `${seed}`.toUpperCase();
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let hash = 0;
+
+    for (let i = 0; i < base.length; i += 1) {
+      hash = (hash * 33 + base.charCodeAt(i)) >>> 0;
+    }
+
+    let code = "";
+    for (let i = 0; i < 8; i += 1) {
+      hash = (hash * 1664525 + 1013904223) >>> 0;
+      code += alphabet[hash % alphabet.length];
+    }
+
+    return code;
+  };
 
   const getCompactClaimCode = (baseCode, rewardTag = "BASE") => {
     const cleaned = `${baseCode}${rewardTag}`.toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -67,6 +86,8 @@ function WaitlistForm({ dark = false }) {
       setError("Please enter your name and email");
       return;
     }
+    setError("");
+    setIsSubmitting(true);
 
     try {
       const res = await fetch(`${API_URL}/waitlist`, {
@@ -85,23 +106,32 @@ function WaitlistForm({ dark = false }) {
       const data = await res.json();
       
       if (res.ok) {
+        if ((data?.message || "").toLowerCase().includes("already registered")) {
+          setError("This email is already registered. Please use a different email.");
+          setIsSubmitting(false);
+          return;
+        }
+
         console.log("Waitlist saved:", data);
-        setPromoCode(data.promoCode);
-        const seededReward = rewardPool[data.promoCode.charCodeAt(data.promoCode.length - 1) % rewardPool.length];
+        const finalPromoCode = data?.promoCode || createQuickPromoCode(`${email}-${Date.now()}`);
+        const seededReward = rewardPool[finalPromoCode.charCodeAt(finalPromoCode.length - 1) % rewardPool.length];
+
+        setPromoCode(finalPromoCode);
         setScratchReward(seededReward);
         setScratchRevealed(false);
         setSubmitted(true);
         setCopied(false);
-        setError("");
         setEmail("");
         setName("");
       } else {
-        setError(data.error || "Error registering. Please try again.");
+        setError(data?.error || "Error registering. Please try again.");
       }
 
     } catch (err) {
       console.error("Error:", err);
-      setError("⚠️ Server not responding. Make sure Node.js backend is running on port 5000. Run: node server.js");
+      setError("Server not responding. Please try again in a moment.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -337,6 +367,7 @@ function WaitlistForm({ dark = false }) {
       <button
         type="button"
         onClick={handleSubmit}
+        disabled={isSubmitting}
         style={{
           background: "#EF4444",
           color: "#fff",
@@ -349,11 +380,12 @@ function WaitlistForm({ dark = false }) {
           fontFamily: "'Nunito', sans-serif",
           transition: "background 0.2s, transform 0.15s",
           letterSpacing: "-0.3px",
+          opacity: isSubmitting ? 0.7 : 1,
         }}
         onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }}
         onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}
       >
-        Join Waitlist
+        {isSubmitting ? "Joining..." : "Join Waitlist"}
       </button>
       <div style={{ fontSize: 12, color: dark ? "rgba(255,255,255,0.35)" : "#aaa", textAlign: "center", marginTop: 2 }}>
         We'll notify you once our app is live. No spam, ever.
@@ -1474,6 +1506,59 @@ export default function App() {
       font-size: 16px; color: rgba(255,255,255,0.4);
       line-height: 1.7; margin-bottom: 40px;
     }
+    .early-access-meta {
+      font-size: 14px;
+      color: rgba(255,255,255,0.62);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .early-access-cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 620px;
+      margin: 32px auto 0;
+    }
+    .early-access-cta-card {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center;
+    }
+    .early-access-cta-icon { font-size: 24px; margin-bottom: 8px; }
+    .early-access-cta-title { font-size: 14px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .early-access-cta-btn {
+      width: 100%;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      font-family: 'Nunito', sans-serif;
+    }
+    .early-access-cta-btn.primary {
+      background: #EF4444;
+      color: #fff;
+    }
+    .early-access-cta-btn.primary:hover {
+      background: #DC2626;
+      transform: translateY(-2px);
+    }
+    .early-access-cta-btn.secondary {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+    .early-access-cta-btn.secondary:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .waitlist-title { font-size: 15px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+    .waitlist-subtitle { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 20px; line-height: 1.55; }
 
     /* ── SHARED SECTION ── */
     .section-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #EF4444; margin-bottom: 14px; }
@@ -1702,6 +1787,13 @@ export default function App() {
       .store-btn-primary { min-width: 100%; }
       .store-btn-secondary { width: 100%; }
 
+      .early-access-band { padding: 58px 20px; }
+      .early-access-title { font-size: 36px; letter-spacing: -1.2px; }
+      .early-access-sub { font-size: 14px; margin-bottom: 28px; }
+      .early-access-cta-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 22px; }
+      .early-access-cta-card { padding: 16px; }
+      .waitlist-box { margin-top: 28px !important; padding: 22px 16px; border-radius: 16px; }
+
       .explainer-section { padding: 56px 16px 52px; }
       .explainer-wrap { grid-template-columns: 1fr; gap: 20px; }
       .explainer-video { min-height: 250px; }
@@ -1758,6 +1850,17 @@ export default function App() {
       .hero-brand { font-size: 48px; }
       .hero-badge-group { gap: 8px; margin-bottom: 14px; justify-content: center; }
       .hero-badge { padding: 6px 12px; font-size: 10px; }
+
+      .early-access-band { padding: 48px 14px; }
+      .early-access-eyebrow { font-size: 10px; letter-spacing: 1.8px; }
+      .early-access-title { font-size: 30px; line-height: 1.12; }
+      .early-access-meta { font-size: 12px; }
+      .early-access-sub { font-size: 13px; line-height: 1.6; margin-bottom: 22px; }
+      .early-access-cta-card { padding: 14px; }
+      .early-access-cta-title { font-size: 13px; }
+      .early-access-cta-btn { padding: 9px 14px; font-size: 12px; }
+      .waitlist-title { font-size: 14px; }
+      .waitlist-subtitle { font-size: 12px; margin-bottom: 16px; }
 
       .explainer-video { min-height: 200px; }
       .explainer-step { padding: 12px; }
@@ -1879,6 +1982,11 @@ export default function App() {
       .footer { padding: 30px 12px 15px; text-align: center; }
       .footer-grid { gap: 20px; }
       .footer-bottom { gap: 15px; }
+
+      .early-access-title { font-size: 26px; }
+      .early-access-sub { font-size: 12px; }
+      .early-access-cta-grid { gap: 10px; }
+      .waitlist-box { padding: 18px 12px; }
 
       .policy-page { padding-top: 60px; }
       .policy-hero { padding: 42px 14px 34px; }
@@ -2403,6 +2511,10 @@ export default function App() {
                     });
                     const data = await res.json();
                     if (res.ok) {
+                      if ((data?.message || "").toLowerCase().includes("already registered")) {
+                        setExitIntentError("This email is already registered. Please use a different email.");
+                        return;
+                      }
                       setExitIntentPromoCode(data.promoCode);
                       setExitIntentSubmitted(true);
                       setExitIntentError("");
@@ -3482,28 +3594,28 @@ export default function App() {
               <div className="early-access-eyebrow">🚀 Limited Time Offer</div>
               <h2 className="early-access-title">Get Free Delivery on First Order<br />When You Join Now</h2>
               <p className="early-access-sub">
-                <span style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", display: "block", marginBottom: 10 }}>
+                <span className="early-access-meta">
                   ✓ Available in 5 Cities • 120+ Coming Soon
                 </span>
                 Join the waitlist and get exclusive early access before official launch.
               </p>
 
               {/* Two CTAs for different user types */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, maxWidth: 600, margin: "32px auto 0" }}>
+              <div className="early-access-cta-grid">
                 {/* For Shoppers */}
-                <div style={{ background: "rgba(255,255,255,0.05)", border: "1.5px solid rgba(255,255,255,0.15)", borderRadius: 16, padding: 24, textAlign: "center" }}>
-                  <div style={{ fontSize: 24, marginBottom: 8 }}>👕</div>
-                  <h3 style={{ fontSize: 14, fontWeight: 900, color: "#fff", marginBottom: 8 }}>For Shoppers</h3>
-                  <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#EF4444", color: "#fff", border: "none", borderRadius: 10, padding: "10px 20px", fontWeight: 800, fontSize: 13, cursor: "pointer", width: "100%", transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.background = "#DC2626"; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.target.style.background = "#EF4444"; e.target.style.transform = "translateY(0)"; }}>
+                <div className="early-access-cta-card">
+                  <div className="early-access-cta-icon">👕</div>
+                  <h3 className="early-access-cta-title">For Shoppers</h3>
+                  <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} className="early-access-cta-btn primary">
                     Join Waitlist
                   </button>
                 </div>
 
                 {/* For Retailers/Businesses */}
-                <div style={{ background: "rgba(255,255,255,0.05)", border: "1.5px solid rgba(255,255,255,0.15)", borderRadius: 16, padding: 24, textAlign: "center" }}>
-                  <div style={{ fontSize: 24, marginBottom: 8 }}>🏪</div>
-                  <h3 style={{ fontSize: 14, fontWeight: 900, color: "#fff", marginBottom: 8 }}>For Retailers</h3>
-                  <button onClick={() => navigate("contact")} style={{ background: "rgba(255,255,255,0.12)", color: "#fff", border: "1.5px solid rgba(255,255,255,0.3)", borderRadius: 10, padding: "10px 20px", fontWeight: 800, fontSize: 13, cursor: "pointer", width: "100%", transition: "all 0.2s" }} onMouseEnter={e => { e.target.style.background = "rgba(255,255,255,0.2)"; e.target.style.borderColor = "#fff"; }} onMouseLeave={e => { e.target.style.background = "rgba(255,255,255,0.12)"; e.target.style.borderColor = "rgba(255,255,255,0.3)"; }}>
+                <div className="early-access-cta-card">
+                  <div className="early-access-cta-icon">🏪</div>
+                  <h3 className="early-access-cta-title">For Retailers</h3>
+                  <button onClick={() => navigate("contact")} className="early-access-cta-btn secondary">
                     Partner With Us
                   </button>
                 </div>
@@ -3511,10 +3623,10 @@ export default function App() {
 
               {/* Waitlist form */}
               <div className="waitlist-box" style={{ marginTop: 40 }}>
-                <div style={{ fontSize: 15, fontWeight: 900, color: "#fff", marginBottom: 4 }}>
+                <div className="waitlist-title">
                   Join the Waitlist 🚀
                 </div>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 20 }}>
+                <div className="waitlist-subtitle">
                   We'll notify you once our app is live. No spam, ever.
                 </div>
                 <WaitlistForm dark={true} />
