@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import logo from "./assets/Locaura.png";
 import videoBg from "./assets/Locauravideo.mp4";
+import explainerVideo from "./assets/landing .mp4";
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
 // API Configuration
@@ -1150,6 +1151,7 @@ export default function App() {
   const [exitIntentPromoCode, setExitIntentPromoCode] = useState("");
   const [exitIntentError, setExitIntentError] = useState("");
   const [waitlistCount, setWaitlistCount] = useState(100);
+  const [slotsLeftToday, setSlotsLeftToday] = useState(147);
   const [selectedSegment, setSelectedSegment] = useState("shop");
   const [segmentFormData, setSegmentFormData] = useState({ 
     shop: { city: "", email: "", submitted: false, promoCode: "", error: "" },
@@ -1187,10 +1189,10 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Countdown Timer for city launch - April 13, 2026
+  // Countdown Timer for city launch - April 22, 2026
   useEffect(() => {
     const updateCountdown = () => {
-      const launchDate = new Date('2026-04-13T00:00:00').getTime();
+      const launchDate = new Date('2026-04-22T00:00:00').getTime();
       const now = new Date().getTime();
       const totalSeconds = Math.max(0, Math.floor((launchDate - now) / 1000));
       
@@ -1230,6 +1232,28 @@ export default function App() {
     const timer = setInterval(updateCounter, 60000); // Check every minute
     return () => clearInterval(timer);
   }, []);
+
+  // Dynamic daily capacity that feels realistic and not artificially tiny.
+  useEffect(() => {
+    const updateSlots = () => {
+      const now = new Date();
+      const startOfYear = new Date(now.getFullYear(), 0, 0);
+      const dayOfYear = Math.floor((now - startOfYear) / 86400000);
+
+      const dailyCapacity = 320 + (dayOfYear % 9) * 18;
+      const minutesPassed = now.getHours() * 60 + now.getMinutes();
+      const dayProgress = minutesPassed / (24 * 60);
+      const expectedClaimedByTime = Math.floor(dailyCapacity * (0.3 + dayProgress * 0.52));
+      const demandPressure = Math.floor((waitlistCount % 67) * 0.55);
+
+      const rawSlotsLeft = dailyCapacity - expectedClaimedByTime - demandPressure;
+      setSlotsLeftToday(Math.max(72, Math.min(389, rawSlotsLeft)));
+    };
+
+    updateSlots();
+    const timer = setInterval(updateSlots, 60000);
+    return () => clearInterval(timer);
+  }, [waitlistCount]);
 
   // Exit-intent popup detector
   useEffect(() => {
@@ -1433,8 +1457,18 @@ export default function App() {
       box-shadow: 0 18px 54px rgba(0,0,0,0.1);
       background: #0b0b0b;
       position: relative;
+      aspect-ratio: 16 / 10;
     }
-    .explainer-video { width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block; }
+    .explainer-video {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transform: scale(1.08);
+      transform-origin: top center;
+    }
     .explainer-video-badge {
       position: absolute;
       top: 14px;
@@ -1556,6 +1590,29 @@ export default function App() {
       background: rgba(255,255,255,0.2);
       border-color: #fff;
       transform: translateY(-2px);
+    }
+    .trust-strip {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
     }
     .waitlist-title { font-size: 15px; font-weight: 900; color: #fff; margin-bottom: 4px; }
     .waitlist-subtitle { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 20px; line-height: 1.55; }
@@ -1792,11 +1849,12 @@ export default function App() {
       .early-access-sub { font-size: 14px; margin-bottom: 28px; }
       .early-access-cta-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 22px; }
       .early-access-cta-card { padding: 16px; }
+      .trust-strip { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
+      .trust-badge { font-size: 11px; padding: 9px 8px; }
       .waitlist-box { margin-top: 28px !important; padding: 22px 16px; border-radius: 16px; }
 
       .explainer-section { padding: 56px 16px 52px; }
       .explainer-wrap { grid-template-columns: 1fr; gap: 20px; }
-      .explainer-video { min-height: 250px; }
 
       .better-wrap { padding: 40px 16px; grid-template-columns: 1fr; gap: 30px; display: flex; flex-direction: column-reverse; text-align: center; }
       .better-images { height: 270px; position: relative; flex-shrink: 0; margin: 0 auto; display: flex; justify-content: center; align-items: flex-start; width: 100%; overflow: hidden; }
@@ -1859,10 +1917,11 @@ export default function App() {
       .early-access-cta-card { padding: 14px; }
       .early-access-cta-title { font-size: 13px; }
       .early-access-cta-btn { padding: 9px 14px; font-size: 12px; }
+      .trust-strip { grid-template-columns: 1fr; max-width: 100%; }
+      .trust-badge { justify-content: flex-start; padding: 10px 12px; }
       .waitlist-title { font-size: 14px; }
       .waitlist-subtitle { font-size: 12px; margin-bottom: 16px; }
 
-      .explainer-video { min-height: 200px; }
       .explainer-step { padding: 12px; }
       .explainer-step-title { font-size: 14px; }
       .explainer-step-sub { font-size: 11px; }
@@ -2298,8 +2357,8 @@ export default function App() {
 
       <SharedNav scrollY={scrollY} onNavigate={navigate} currentPage={currentPage} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
 
-      {/* STICKY COUNTDOWN TIMER */}
-      {currentPage === "home" && showCountdownInHeader && (
+      {/* COMPACT STICKY CONVERSION BAR */}
+      {currentPage === "home" && (showCountdownInHeader || showStickyEmail) && (
         <div style={{
           position: "fixed",
           top: 70,
@@ -2307,44 +2366,31 @@ export default function App() {
           right: 0,
           background: "linear-gradient(90deg, rgba(0,0,0,0.95), rgba(0,0,0,0.9))",
           backdropFilter: "blur(10px)",
-          padding: "12px 32px",
-          textAlign: "center",
+          padding: "10px 20px",
           zIndex: 998,
           borderBottom: "1px solid rgba(0,0,0,0.3)",
           animation: "slideDown 0.4s ease",
-        }}>
-          <div style={{ color: "#fff", fontWeight: 900, fontSize: 13, letterSpacing: "0.5px" }}>
-            🚀 Launching in Vizag: {countdown.days}d {countdown.hours}h {countdown.minutes}m {countdown.seconds}s | {waitlistCount} users waiting
-          </div>
-        </div>
-      )}
-
-      {/* STICKY EMAIL CAPTURE BANNER */}
-      {currentPage === "home" && showStickyEmail && (
-        <div style={{
-          position: "fixed",
-          top: 80,
-          left: 0,
-          right: 0,
-          background: "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(0,0,0,0.95))",
-          padding: "12px 32px",
-          zIndex: 100,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 20,
-          backdropFilter: "blur(10px)",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-          animation: "slideDown 0.4s ease",
+          gap: 14,
+          flexWrap: "wrap",
         }}>
-          <div style={{ color: "#fff", fontSize: 13, fontWeight: 700 }}>
-            Join 10K+ users. Same-day delivery in your city. <strong>Free returns.</strong>
+          <div style={{ color: "#fff", fontWeight: 900, fontSize: 13, letterSpacing: "0.4px" }}>
+            🚀 Launching in Vizag: {countdown.days}d {countdown.hours}h {countdown.minutes}m {countdown.seconds}s | {waitlistCount} users waiting
           </div>
-          <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: "#fff", color: "#000000", border: "none", padding: "8px 18px", borderRadius: 8, fontWeight: 800, fontSize: 12, cursor: "pointer", transition: "transform 0.2s" }} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
-              Join Now
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginLeft: "auto" }}>
+            <span style={{ color: "rgba(255,255,255,0.85)", fontSize: 12, fontWeight: 700 }}>
+              Free first delivery for early users. Join now.
+            </span>
+            <button
+              onClick={() => document.querySelector('.waitlist-box')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{ background: "#fff", color: "#000000", border: "none", padding: "7px 14px", borderRadius: 8, fontWeight: 800, fontSize: 12, cursor: "pointer", transition: "transform 0.2s" }}
+              onMouseEnter={e => e.target.style.transform = "translateY(-2px)"}
+              onMouseLeave={e => e.target.style.transform = "translateY(0)"}
+            >
+              Join Waitlist
             </button>
-            <button onClick={() => setShowStickyEmail(false)} style={{ background: "transparent", color: "#fff", border: "none", cursor: "pointer", fontSize: 18 }}>✕</button>
           </div>
         </div>
       )}
@@ -2739,7 +2785,7 @@ export default function App() {
                 <span className="hero-badge">🔒 100% Secure</span>
               </div>
               <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8, padding: "10px 18px", marginBottom: 24, display: "inline-block", fontSize: 13, fontWeight: 700, color: "#fff", backdropFilter: "blur(15px)" }}>
-                Launching in Vizag in {countdown.days}d {countdown.hours}h {countdown.minutes}m {countdown.seconds}s
+                Launching in Vizag on 22 April 2026 • Early-access slots left today: {slotsLeftToday}
               </div>
               <div className="hero-brand">locaura</div>
               <h1 className="hero-headline">
@@ -2796,9 +2842,8 @@ export default function App() {
                 </div>
               </div>
               <div className="explainer-video-card">
-                <div className="explainer-video-badge">AI-style delivery flow</div>
                 <video className="explainer-video" autoPlay loop muted playsInline preload="metadata">
-                  <source src={videoBg} type="video/mp4" />
+                  <source src={explainerVideo} type="video/mp4" />
                 </video>
               </div>
             </div>
@@ -3619,6 +3664,13 @@ export default function App() {
                     Partner With Us
                   </button>
                 </div>
+              </div>
+
+              <div className="trust-strip" aria-label="trust indicators">
+                <div className="trust-badge">✅ Verified Local Stores</div>
+                <div className="trust-badge">🔒 Secure Checkout</div>
+                <div className="trust-badge">🔄 Easy Returns</div>
+                <div className="trust-badge">💬 Support on WhatsApp</div>
               </div>
 
               {/* Waitlist form */}
